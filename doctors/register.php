@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+  <title>Register - CALL MY DOCTOR</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -39,7 +39,7 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-8 d-flex flex-column align-items-center justify-content-center">
 
               <!-- <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
@@ -59,31 +59,61 @@
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
+                    <div class="col-lg-6">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-lg-6">
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
+                    <div class="col-lg-6">
+                      <label for="yourName" class="form-label">Contact</label>
+                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <div class="invalid-feedback">Please, enter your contact!</div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-lg-6">
+                      <label for="yourEmail" class="form-label">Gender</label>
+                      <select id="inputState" name="gender" class="form-select">
+                        <option selected disabled>Choose...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                      </select>
+                      <div class="invalid-feedback">Please select gender!</div>
+                    </div>
+
+                    <div class="col-lg-6">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
                       <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <label for="yourPassword" class="form-label">Re-type Password</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <label for="yourQualification" class="form-label">Qualification</label>
+                      <select id="inputState" name="qualification" class="form-select" required>
+                        <option selected disabled>Choose...</option>
+                        <option value="bsc">HND</option>
+                        <option value="bsc">B.Sc</option>
+                        <option value="bsc">M.Sc</option>
+                      </select>
+                      <div class="invalid-feedback">Please enter your qualification!</div>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <label for="yourClinicmap" class="form-label">Clinic Map</label>
+                      <textarea name="clinic-map" id="yourClinicmap" class="form-control" required></textarea>
+                      <div class="invalid-feedback">Please enter your clinic map!</div>
                     </div>
 
                     <div class="col-12">
