@@ -96,7 +96,7 @@
                       <i class="bi bi-cash"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$800.45</h6>
+                      <h6>$873</h6>
                       <span class="text-danger small pt-1 fw-bold"><a href="medical-report.php">view</a></span>
                     </div>
                   </div>

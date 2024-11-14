@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,16 +47,39 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
+                    
+                    <?php 
+                      if(isset($_SESSION['message']) && $_SESSION['message'] !=''){
+                        echo '
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          <i class="bi bi-check-circle me-1"></i>
+                          '.$_SESSION['message'].'
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
+                        unset($_SESSION['message']);
+                      }
+
+                      if(isset($_SESSION['error']) && $_SESSION['error'] !=''){
+                        echo '
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                          <i class="bi bi-exclamation-octagon me-1"></i>
+                          '.$_SESSION['error'].'
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
+                          unset($_SESSION['error']);
+                      }
+                    ?>
+
                     <h5 class="card-title text-center pb-0 fs-4">Login as admin</h5>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" action="Controllers/userCtrl.php" method="post" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="email" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
@@ -68,7 +92,7 @@
 
                     <div class="col-12">
                       <!-- <button class="btn btn-primary w-100" type="submit">Login</button> -->
-                      <a class="btn btn-primary w-100" href="index.php">Login</a>
+                      <input type="submit" name="login" class="btn btn-primary w-100" value="Login">
                     </div>
                   </form>
 

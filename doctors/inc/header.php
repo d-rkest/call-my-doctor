@@ -205,12 +205,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">J. Doe</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">Shun</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>John Doe</h6>
+              <h6>Dr. Shun Morphy</h6>
               <!-- <span>Web Designer</span> -->
             </li>
             <li>
@@ -290,15 +290,16 @@
       </li><!-- End Blank Page Nav -->
       </li><!-- End Contact Page Nav -->
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="profile.php">
           <i class="bi bi-person"></i>
-          <span>Profle</span>
+          <span>Profile</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li> -->
+      <!-- End Blank Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="settings.php">
+        <a class="nav-link collapsed" href="profile.php">
           <i class="bi bi-gear"></i>
           <span>Settings</span>
         </a>

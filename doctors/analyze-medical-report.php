@@ -33,7 +33,7 @@
               <h5 class="card-header">Analyze Medical Report</h5>
               <div class="col-md-12 p-3 d-flex">
                 <input type="text" class="form-control" placeholder="Medical Report" disabled>
-                <button type="submit" class="btn btn-primary">Download</button>
+                <a href="../uploads/doc.pdf" target="_blank" class="btn btn-primary">Download</a>
               </div>
                 <div class="col-md-12">
                   <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>

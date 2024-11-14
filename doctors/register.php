@@ -55,82 +55,58 @@
 
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <p class="text-center small">Already have an account? <a href="login.php">Proceed to login</a></p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-lg-6">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <label for="yourName" class="form-label">Contact</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your contact!</div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <label for="yourEmail" class="form-label">Gender</label>
-                      <select id="inputState" name="gender" class="form-select">
-                        <option selected disabled>Choose...</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </select>
-                      <div class="invalid-feedback">Please select gender!</div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <label for="yourPassword" class="form-label">Re-type Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-lg-6">
-                      <label for="yourQualification" class="form-label">Qualification</label>
-                      <select id="inputState" name="qualification" class="form-select" required>
-                        <option selected disabled>Choose...</option>
-                        <option value="bsc">HND</option>
-                        <option value="bsc">B.Sc</option>
-                        <option value="bsc">M.Sc</option>
-                      </select>
-                      <div class="invalid-feedback">Please enter your qualification!</div>
-                    </div>
-
-                    <div class="col-lg-12">
-                      <label for="yourClinicmap" class="form-label">Clinic Map</label>
-                      <textarea name="clinic-map" id="yourClinicmap" class="form-control" required></textarea>
-                      <div class="invalid-feedback">Please enter your clinic map!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
+                    <!-- Doctors registration Form -->
+                    <form class="row g-3 needs-validation" action="../Controllers/userCtrl.php" method="post" novalidate>
+                      <div class="col-md-12">
+                        <input type="text" name="fullname" class="form-control" placeholder="Your Name" required>
+                        <div class="invalid-feedback">Please, enter your name!</div>
                       </div>
-                    </div>
-                    <div class="col-12">
-                      <!-- <button class="btn btn-primary w-100" type="submit">Create Account</button> -->
-                      <a class="btn btn-primary w-100" href="login.php">Create Account</a>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="login.php">Log in</a></p>
-                    </div>
-                  </form>
+                      <div class="col-md-6">
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        <div class="invalid-feedback">Please, enter your email!</div>
+                      </div>
+                      <div class="col-md-6">
+                        <input type="text" name="phone" class="form-control" placeholder="Phone" required>
+                        <div class="invalid-feedback">Please, enter your phone number!</div>
+                      </div>
+                      <div class="col-md-6">
+                        <select id="inputState" name="gender" class="form-select">
+                          <option selected disabled>Gender...</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                        <div class="invalid-feedback">Please, enter your gender!</div>
+                      </div>
+                      <div class="col-md-6">
+                        <select id="inputState" name="qualification" class="form-select">
+                          <option selected disabled>Qualification...</option>
+                          <option value="dsc">Doctor's Degree</option>
+                          <option value="msc">Master's Degree</option>
+                          <option value="bsc">Bachelor's Degree</option>
+                          <option value="hnd">Higher National Diploma</option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                      <label for="yourClinicmap" class="form-label">Clinic Map</label>
+                        <textarea name="clinic_map" id="yourClinicmap" class="form-control" required></textarea>
+                        <div class="invalid-feedback">Please, enter your clinic map!</div>
+                      </div>
+                      <div class="col-md-6">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <div class="invalid-feedback">Please, enter your password!</div>
+                      </div>
+                      <div class="col-md-6">
+                        <input type="password" name="re_password" class="form-control" placeholder="Re-type Password" required>
+                        <div class="invalid-feedback">Please, re-enter your password!</div>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" name="register_doctor" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                      </div>
+                    </form><!-- End No Labels Form -->
 
                 </div>
               </div>

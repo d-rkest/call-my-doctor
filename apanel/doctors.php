@@ -1,4 +1,7 @@
-<?php require_once 'inc/header.php'; ?>
+<?php 
+  require_once 'Controllers/doctorCtrl.php';
+  require_once 'inc/header.php'; 
+?>
 
     <div class="pagetitle">
       <h1>Doctors</h1>
@@ -33,43 +36,52 @@
                       </div>
                       <div class="modal-body">
                                   
-                        <!-- No Labels Form -->
-                        <form class="row g-3">
+                        <!-- Doctors registration Form -->
+                        <form class="row g-3 needs-validation" action="../Controllers/userCtrl.php" method="post" novalidate>
                           <div class="col-md-12">
-                            <input type="text" class="form-control" placeholder="Your Name">
+                            <input type="text" name="fullname" class="form-control" placeholder="Your Name" required>
+                            <div class="invalid-feedback">Please, enter your name!</div>
                           </div>
                           <div class="col-md-6">
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" name="email" class="form-control" placeholder="Email">
+                            <div class="invalid-feedback">Please, enter your email!</div>
                           </div>
                           <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Phone">
+                            <input type="text" name="phone" class="form-control" placeholder="Phone">
+                            <div class="invalid-feedback">Please, enter your phone number!</div>
                           </div>
                           <div class="col-md-6">
-                            <select id="inputState" class="form-select">
+                            <select id="inputState" name="gender" class="form-select">
                               <option selected disabled>Gender...</option>
                               <option value="male">Male</option>
+                              <option value="female">Female</option>
                             </select>
+                            <div class="invalid-feedback">Please, enter your gender!</div>
                           </div>
                           <div class="col-md-6">
-                            <select id="inputState" class="form-select">
+                            <select id="inputState" name="qualification" class="form-select">
                               <option selected disabled>Qualification...</option>
-                              <option value="bsc">B.Sc</option>
-                              <option value="msc">M.Sc</option>
-                              <option value="hnd">HND</option>
+                              <option value="dsc">Doctor's Degree</option>
+                              <option value="msc">Master's Degree</option>
+                              <option value="bsc">Bachelor's Degree</option>
+                              <option value="hnd">Higher National Diploma</option>
                             </select>
                           </div>
                           <div class="col-12">
                           <label for="yourClinicmap" class="form-label">Clinic Map</label>
-                            <textarea name="clinic-map" id="yourClinicmap" class="form-control" required></textarea>
+                            <textarea name="clinic_map" id="yourClinicmap" class="form-control" required></textarea>
+                            <div class="invalid-feedback">Please, enter your clinic map!</div>
                           </div>
                           <div class="col-md-6">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
+                            <div class="invalid-feedback">Please, enter your password!</div>
                           </div>
                           <div class="col-md-6">
-                            <input type="password" class="form-control" placeholder="Re-type Password">
+                            <input type="password" name="re_password" class="form-control" placeholder="Re-type Password" required>
+                            <div class="invalid-feedback">Please, re-enter your password!</div>
                           </div>
                           <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="register_doctor" class="btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-secondary">Reset</button>
                           </div>
                         </form><!-- End No Labels Form -->
@@ -99,30 +111,53 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <?php if (empty($user->fetch_doctors())) { ?>
+                      <tr>
+                        <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
+                      </tr>
+                    <?php
+                      }  else { 
+                        $doctors = $user->fetch_doctors();
+                        $num=1;
+                        foreach ($doctors as $doctor) {     
+                    ?>
                     <tr>
                       <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                      <td><b>Name:</b> Adebayo <br><b>Email:</b> adebayo@gmail.com <br><b>Tel:</b> 0911111111</td>
-                      <td>No. 21 adebayo street, lagos</td>
-                      <td><a href="" class="badge bg-primary"><i class="bi bi-map text-light"></i> Map</a></td>
-                      <td><span class="badge bg-success">active</span></td>
                       <td>
-                        <span><a href="#"><i class="bi bi-pen h3 text-success"></i></a></span>
-                        <span><a href="#"><i class="bi bi-eye h3 text-primary"></i></a></span>
-                        <span><a href="#"><i class="bi bi-trash h3 text-danger"></i></a></span>
+                        <b>Name:</b> <?= $doctor['fullname'];?> <br>
+                        <b>Email:</b> <?= $doctor['email'];?> <br>
+                        <b>Tel:</b> <?= $doctor['phone'];?>
+                      </td>
+                      <td>No. 21 adebayo street, lagos</td>
+                      <td><a href="#" class="badge bg-primary"><i class="bi bi-map text-light"></i> Map</a></td>
+                      <td>
+                        <?php
+                          switch ($doctor['status']) {
+                            case 'active':
+                              echo '<span class="badge bg-success">active</span>';
+                              break;
+
+                            case 'inactive':
+                              echo '<span class="badge bg-danger">inactive</span>';
+                              break;
+                            
+                            default:
+                            echo '<span class="badge bg-warning">pending</span>';
+                              break;
+                          }
+                        ?>
+                        
+                      </td>
+                      <td>
+                        <span><a href="#"><i class="bi bi-pen h5 text-success"></i></a></span>
+                        <span><a href="view_patient.php?id=<?= $patient['user_id']; ?>"><i class="bi bi-eye h5 text-primary"></i></a></span>
+                        <span><a href="#"><i class="bi bi-trash h5 text-danger"></i></a></span>
                       </td>
                     </tr>
-                    <tr>
-                      <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                      <td><b>Name:</b> Adebayo <br><b>Email:</b> adebayo@gmail.com <br><b>Tel:</b> 0911111111</td>
-                      <td>No. 21 adebayo street, lagos</td>
-                      <td><a href="" class="badge bg-primary"><i class="bi bi-map text-light"></i> Map</a></td>
-                      <td><span class="badge bg-warning">pending</span></td>
-                      <td>
-                        <span><a href="#"><i class="bi bi-pen h3 text-success"></i></a></span>
-                        <span><a href="#"><i class="bi bi-eye h3 text-primary"></i></a></span>
-                        <span><a href="#"><i class="bi bi-trash h3 text-danger"></i></a></span>
-                      </td>
-                    </tr>
+                    <?php
+                        }
+                      }
+                    ?>
                     
                   </tbody>
                 </table>

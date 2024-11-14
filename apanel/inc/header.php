@@ -1,3 +1,4 @@
+<?php require_once '../config/sessionConfig.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -264,13 +265,49 @@
       </li><!-- End Settings Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="login.php">
-          <i class="bi bi-power"></i>
-          <span>Logout</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
+        <form action="Controllers/userCtrl.php" method="post">
+          <button class=" collapsed nav-link" name="logout" type="submit">
+            
+            <span class="btn btn-sm btn-danger fw-bold"><i class="bi bi-power text-white"></i> Logout</span></button>
+        </form>
+      </li><!-- End Logout Nav -->
 
     </ul>
+
+    <span class="d-flex fixed-bottom m-2">
+    <?php
+
+      if(isset($_SESSION['message']) && $_SESSION['message'] !=''){
+        echo '
+        <div class="alert alert-success alert-dismissible fade show d-relative" role="alert">
+          <i class="bi bi-check-circle me-1"></i>
+          '.$_SESSION['message'].'
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+        unset($_SESSION['message']);
+      }
+
+      if(isset($_SESSION['error']) && $_SESSION['error'] !=''){
+        echo '
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-octagon me-1"></i>
+          '.$_SESSION['error'].'
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+          unset($_SESSION['error']);
+      }
+
+      if(isset($_SESSION['warning']) && $_SESSION['warning'] !=''){
+        echo '
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          '.$_SESSION['warning'].'
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+          unset($_SESSION['error']);
+      }
+    ?>
+    </span>
 
   </aside><!-- End Sidebar-->
 
