@@ -1,4 +1,7 @@
-<?php require_once 'inc/header.php'; ?>
+<?php
+  require_once 'inc/header.php';
+  require_once '../Controllers/patientCtrl.php';
+?>
 
     <div class="pagetitle">
       <h1>Dashboard</h1>
@@ -22,15 +25,15 @@
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Appointments</h5>
+                  <h5 class="card-title">Available Doctors</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-book"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>2</h6>
-                      <span class="text-success small pt-1 fw-bold">view</span>
+                      <h6><?= isset($doctorCount) ? $doctorCount : 0; ?></h6>
+                      <a href="available-doc.php"><span class="text-success small pt-1 fw-bold">view</span></a>
                     </div>
                   </div>
                 </div>
@@ -43,15 +46,15 @@
               <div class="card info-card revenue-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Results</h5>
+                  <h5 class="card-title">Appointments</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-file"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>3</h6>
-                      <span class="text-success small pt-1 fw-bold">view</span>
+                      <h6><?= isset($appointmentCount) ? $appointmentCount : 0; ?></h6>
+                      <a href="appointment.php"><span class="text-success small pt-1 fw-bold">view</span></a>
 
                     </div>
                   </div>
@@ -66,14 +69,14 @@
               <div class="card info-card customers-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Reports</h5>
+                  <h5 class="card-title">Report/Feedback</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-hospital"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>8</h6>
+                      <h6><?= isset($reportCount) ? $reportCount : 0; ?></h6>
                       <span class="text-danger small pt-1 fw-bold">view</span>
                     </div>
                   </div>
@@ -83,7 +86,7 @@
 
             </div><!-- End Reports Card -->
 
-            <!-- Recent Sales -->
+            <!-- Appointments -->
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
@@ -101,9 +104,19 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php if (empty($users->fetch_appointment())) { ?>
+                        <tr>
+                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
+                        </tr>
+                      <?php
+                        }  else { 
+                          $appointments = $users->fetch_appointment();
+                          $num=1;
+                          foreach ($appointments as $appointment) {     
+                      ?>
                       <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Dr. Brown</td>
+                        <th scope="row"><a href="#"><?= $num; ?></a></th>
+                        <td><?= $appointment['fullname'];?></td>
                         <td><a href="#" class="text-primary">At praesentium minu</a></td>
                         <td>28-10-2024 10:00am</td>
                         <td><span class="badge bg-warning">panding</span></td>
@@ -122,6 +135,10 @@
                         <td>05-10-2024 10:00am</td>
                         <td><span class="badge bg-danger">missed</span></td>
                       </tr>
+                      <?php
+                          }
+                        }
+                      ?>
                     </tbody>
                   </table>
 

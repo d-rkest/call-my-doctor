@@ -32,13 +32,14 @@
 
             if ($stmt->execute()) {
 
-                $sql = "INSERT INTO doctors_info SET fullname = :fullname, gender = :gender, phone = :phone, qualification = :qualification, clinic_map = :clinic_map, user_id = :user_id";
+                $sql = "INSERT INTO doctors_info SET fullname = :fullname, gender = :gender, phone = :phone, qualification = :qualification, address = :address, clinic_map = :clinic_map, user_id = :user_id";
                 $stmt = $this->conn->prepare($sql);
                 
                 $stmt->bindParam(':fullname', $this->fullname, PDO::PARAM_STR);
                 $stmt->bindParam(':gender', $this->gender, PDO::PARAM_STR);
                 $stmt->bindParam(':phone', $this->phone, PDO::PARAM_STR);
                 $stmt->bindParam(':qualification', $this->qualification, PDO::PARAM_STR);
+                $stmt->bindParam(':address', $this->address, PDO::PARAM_STR);
                 $stmt->bindParam(':clinic_map', $this->clinic_map, PDO::PARAM_STR);
                 $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
                 $stmt->execute();

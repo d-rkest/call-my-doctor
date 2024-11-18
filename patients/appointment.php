@@ -14,49 +14,52 @@
     <section class="section">
       <div class="row">
 
-        <div class="col-lg-12">
+        <!-- Appointments -->
+        <div class="col-12">
+          <div class="card recent-sales overflow-auto">
 
-          <div class="card">
             <div class="card-body">
-              
-              <h5 class="card-title">New Appointment</h5>
-              <!-- <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p> -->
+              <h5 class="card-title">Activities</h5>
 
-              <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-4 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Dr. Morphie" required="" disabled>
-                  </div>
-                  <div class="col-md-4 form-group mt-3 mt-md-0">
-                    <select name="doctor" id="doctor" class="form-select" required="">
-                      <option value="">Select Service</option>
-                      <option value="Doctor 1">service 1</option>
-                      <option value="Doctor 2">service 2</option>
-                      <option value="Doctor 3">service 3</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4 form-group mt-3 mt-md-0">
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Remark" required="">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 form-group mt-3">
-                    <input type="date" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" required="">
-                  </div>
-                  <div class="col-md-4 form-group mt-3">
-                    <input type="time" name="date" class="form-control datepicker" id="date" placeholder="Appointment Time" required="">
-                  </div>
-                </div>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><a href="#">#2457</a></th>
+                    <td>Dr. Brown</td>
+                    <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                    <td>28-10-2024 10:00am</td>
+                    <td><span class="badge bg-warning">panding</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><a href="#">#2147</a></th>
+                    <td>Dr. Shun</td>
+                    <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                    <td>21-10-2024 10:00am</td>
+                    <td><span class="badge bg-success">done</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><a href="#">#2049</a></th>
+                    <td>Ashleigh Langosh</td>
+                    <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                    <td>05-10-2024 10:00am</td>
+                    <td><span class="badge bg-danger">missed</span></td>
+                  </tr>
+                </tbody>
+              </table>
 
-                <div class="mt-3">
-                  <button class="btn btn-primary" type="submit">Book an Appointment</button>
-                </div>
-              </form>
-              
             </div>
-          </div>
 
-        </div>
+          </div>
+        </div><!-- End appointments -->
         
       </div>
     </section>

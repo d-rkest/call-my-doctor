@@ -1,3 +1,4 @@
+<?php require_once '../config/sessionConfig.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -248,10 +249,12 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="login.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
+              <form action="../Controllers/userCtrl.php" method="post">
+                <button name="logout" class="dropdown-item d-flex align-items-center">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </button>
+              </form>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
@@ -317,9 +320,9 @@
       </li><!-- End Contact Page Nav -->
 
       <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.php">
+        <a class="nav-link collapsed" href="appointment.php">
           <i class="bi bi-file-earmark"></i>
-          <span>Messages</span>
+          <span>Appointments</span>
         </a>
       </li> -->
       <!-- End Blank Page Nav -->

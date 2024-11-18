@@ -1,3 +1,4 @@
+<?php require_once '../config/sessionConfig.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -248,10 +249,12 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="login.php">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
+              <form action="../Controllers/userCtrl.php" method="post">
+                <button name="logout" class="dropdown-item d-flex align-items-center">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Sign Out</span>
+                </button>
+              </form>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
@@ -306,6 +309,41 @@
       </li><!-- End Blank Page Nav -->
 
     </ul>
+
+    <span class="d-flex fixed-bottom m-2">
+      <?php
+
+        if(isset($_SESSION['message']) && $_SESSION['message'] !=''){
+          echo '
+          <div class="alert alert-success alert-dismissible fade show d-relative" role="alert">
+            <i class="bi bi-check-circle me-1"></i>
+            '.$_SESSION['message'].'
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>';
+          unset($_SESSION['message']);
+        }
+
+        if(isset($_SESSION['error']) && $_SESSION['error'] !=''){
+          echo '
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-octagon me-1"></i>
+            '.$_SESSION['error'].'
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>';
+            unset($_SESSION['error']);
+        }
+
+        if(isset($_SESSION['warning']) && $_SESSION['warning'] !=''){
+          echo '
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            '.$_SESSION['warning'].'
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>';
+            unset($_SESSION['error']);
+        }
+      ?>
+    </span>
 
   </aside><!-- End Sidebar-->
 

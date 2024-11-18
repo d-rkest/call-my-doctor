@@ -1,4 +1,7 @@
-<?php require_once 'inc/header.php'; ?>
+<?php
+  require_once 'inc/header.php';
+  require_once '../Controllers/doctorCtrl.php';
+?>
 
     <div class="pagetitle">
       <h1>Dashboard</h1>
@@ -29,7 +32,7 @@
                       <i class="bi bi-book"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>2</h6>
+                      <h6><?= isset($appointmentCount) ? $appointmenttCount : 0; ?></h6>
                       <span class="text-success small pt-1 fw-bold"><a href="appointment.php">view</a></span>
                     </div>
                   </div>
@@ -50,7 +53,7 @@
                       <i class="bi bi-file"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>3</h6>
+                      <h6><?= isset($pendingReportCount) ? $pendingReportCount : 0; ?></h6>
                       <span class="text-success small pt-1 fw-bold"><a href="pending-reports.php">view</a></span>
 
                     </div>
@@ -58,7 +61,7 @@
                 </div>
 
               </div>
-            </div><!-- End Results Card -->
+            </div><!-- End Pending Report Card -->
 
             <!-- Reports Card -->
             <div class="col-xxl-4 col-md-4">
@@ -73,7 +76,7 @@
                       <i class="bi bi-hospital"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>8</h6>
+                      <h6><?= isset($reportCount) ? $reportCount : 0; ?></h6>
                       <span class="text-danger small pt-1 fw-bold"><a href="medical-report.php">view</a></span>
                     </div>
                   </div>

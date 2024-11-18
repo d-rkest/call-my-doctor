@@ -1,4 +1,7 @@
-<?php require_once 'inc/header.php'; ?>
+<?php 
+  require_once 'inc/header.php'; 
+  require_once 'Controllers/serviceCtrl.php';
+?>
 
     <div class="pagetitle">
       <h1>Services</h1>
@@ -70,16 +73,30 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php if (empty($service->fetch_services())) { ?>
+                        <tr>
+                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
+                        </tr>
+                      <?php
+                        }  else { 
+                          $services = $service->fetch_services();
+                          $num=1;
+                          foreach ($services as $service) {     
+                      ?>
                       <tr>
                         <th scope="row"><a href="#">#1</a></th>
-                        <td>Dental</td>
-                        <td>$200</td>
-                        <td><span class="badge bg-success">active</span></td>
+                        <td><?= $service['service'];?></td>
+                        <td>$<?= $service['amount'];?></td>
+                        <td><span class="badge bg-success"><?= $service['status'];?></span></td>
                         <td>
                           <i class="bi bi-pen"></i> &nbsp; &nbsp;
                           <i class="bi bi-trash"></i>
                         </td>
                       </tr>
+                      <?php
+                          }
+                        }
+                      ?>
                     </tbody>
                   </table>
 

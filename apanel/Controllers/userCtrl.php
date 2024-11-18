@@ -57,6 +57,7 @@
         $user->phone = $_POST['phone'];
         $user->qualification = $_POST['qualification'];
         $user->clinic_map = $_POST['clinic_map'];
+        $user->address = $_POST['address'];
 
         if ($user->password = $_POST['password'] == $user->re_password = $_POST['re_password']) {
             

@@ -2,36 +2,67 @@
 
     class Patient {
         private $conn;
-        private $table = 'users';
 
         public $id;
-        public $username;
-        public $password;
-
         public $user_id;
-        public $fullname;
-        public $phone;
-        public $address;
-        public $passport;
-        public $email;
+        public $doctors_id;
         
         public function __construct($db) {
             $this->conn = $db;
         }
     
-        #Fetch all patient(s)
-        public function fetch_patient() {
+        #Fetch all appointment
+        public function fetch_appointment() {
         
-            $query = "SELECT p.*, u.*
-            FROM patient_info p
-            LEFT JOIN user u ON p.user_id = u.user_id";
+            $query = "SELECT a.*, d.*
+            FROM appointments a
+            LEFT JOIN doctors_info d ON a.doctor_id = d.user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    
+        #Fetch doctors
+        public function doctors() {
+        
+            $query = "SELECT * FROM doctors_info";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    
+        #Fetch available doctors
+        public function available_doctors() {
+        
+            $query = "SELECT * FROM doctors_info WHERE available = 1 ";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
     
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        #Count Appointments
+        public function count_appointment() {
+    
+            $stmt = $this->conn->query("SELECT count(*) FROM appointments");
+            return $stmt->fetchColumn();
+        }
 
+        #Count Patient
+        public function count_available_doctor() {
+    
+            $stmt = $this->conn->query("SELECT count(*) FROM doctors_info WHERE available = 1 ");
+            return $stmt->fetchColumn();
+        }
+
+        #Count Patient
+        public function count_report() {
+    
+            $stmt = $this->conn->query("SELECT count(*) FROM medical_reports");
+            return $stmt->fetchColumn();
+        }
 
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";

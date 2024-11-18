@@ -1,4 +1,7 @@
-<?php require_once 'inc/header.php'; ?>
+<?php 
+  require_once 'inc/header.php';
+  require_once 'Controllers/paymentCtrl.php';
+?>
 
     <div class="pagetitle">
       <h1>Payment Records</h1>
@@ -28,21 +31,36 @@
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Patient</th>
+                        <th scope="col">Service</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Payment status</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
+                      <?php if (empty($payment->fetch_payments())) { ?>
+                        <tr>
+                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="6" class="text-center text-secondary">No record found</th>
+                        </tr>
+                      <?php
+                        }  else { 
+                          $payments = $payment->fetch_payments();
+                          $num=1;
+                          foreach ($payments as $payment) {     
+                      ?>
                       <tr>
-                        <th scope="row"><a href="#">#1</a></th>
-                        <td>Michael T</td>
+                        <th scope="row"><a href="#"><?= $num; ?></a></th>
+                        <td><?= $payment['user_id'];?></td>
                         <td>$20</td>
                         <td><span class="badge bg-success">successful</span></td>
                         <td>
                           <a href="../uploads/doc.pdf" target="_blank"><i class="bi bi-eye h5 text-success"></i></a>
                         </td>
                       </tr>
+                      <?php
+                          }
+                        }
+                      ?>
                     </tbody>
                   </table>
 

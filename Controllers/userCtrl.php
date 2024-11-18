@@ -101,6 +101,40 @@
         }
     }
 
+    #Doctors Login statement
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_doctor'])) {
+        
+        $user->email = $_POST['email'];
+        $user->password = $_POST['password'];
+
+        if ($user->login_doctor()) {
+            $_SESSION['id'] = $user->id;
+            $_SESSION['email'] = $user->email;
+            $_SESSION['message'] = 'You are logged in';
+            header('location: ../doctors/index.php');
+        } else {
+            $_SESSION['error'] = 'invalid login credentials';
+            header('location: ../doctors/login.php');
+        }
+    }
+
+    #Patient Login statement
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login_patient'])) {
+        
+        $user->email = $_POST['email'];
+        $user->password = $_POST['password'];
+
+        if ($user->login_patient()) {
+            $_SESSION['id'] = $user->id;
+            $_SESSION['email'] = $user->email;
+            $_SESSION['message'] = 'You are logged in';
+            header('location: ../patients/index.php');
+        } else {
+            $_SESSION['error'] = 'invalid login credentials';
+            header('location: ../patients/login.php');
+        }
+    }
+
     #Reset password
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
         

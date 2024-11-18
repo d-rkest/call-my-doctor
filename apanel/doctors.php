@@ -68,6 +68,10 @@
                             </select>
                           </div>
                           <div class="col-12">
+                            <input type="text" name="address" class="form-control" placeholder="Address" required>
+                            <div class="invalid-feedback">Please, enter your address!</div>
+                          </div>
+                          <div class="col-12">
                           <label for="yourClinicmap" class="form-label">Clinic Map</label>
                             <textarea name="clinic_map" id="yourClinicmap" class="form-control" required></textarea>
                             <div class="invalid-feedback">Please, enter your clinic map!</div>
@@ -124,11 +128,11 @@
                     <tr>
                       <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
                       <td>
-                        <b>Name:</b> <?= $doctor['fullname'];?> <br>
+                        <b>Name: Dr. </b> <?= $doctor['fullname'];?> <br>
                         <b>Email:</b> <?= $doctor['email'];?> <br>
                         <b>Tel:</b> <?= $doctor['phone'];?>
                       </td>
-                      <td>No. 21 adebayo street, lagos</td>
+                      <td><?= $doctor['address'];?></td>
                       <td><a href="#" class="badge bg-primary"><i class="bi bi-map text-light"></i> Map</a></td>
                       <td>
                         <?php
@@ -149,8 +153,7 @@
                         
                       </td>
                       <td>
-                        <span><a href="#"><i class="bi bi-pen h5 text-success"></i></a></span>
-                        <span><a href="view_patient.php?id=<?= $patient['user_id']; ?>"><i class="bi bi-eye h5 text-primary"></i></a></span>
+                        <span><a href="view_doctor.php?id=<?= $doctor['user_id']; ?>"><i class="bi bi-eye h5 text-primary"></i></a></span>
                         <span><a href="#"><i class="bi bi-trash h5 text-danger"></i></a></span>
                       </td>
                     </tr>

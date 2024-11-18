@@ -4,7 +4,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="patients.php">Patients</a></li>
+          <li class="breadcrumb-item"><a href="doctors.php">Doctors</a></li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
       </nav>

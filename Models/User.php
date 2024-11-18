@@ -99,6 +99,44 @@
 
             return false;
         }
+
+        #Doctors Login Model
+        public function login_doctor() {
+            
+            $query = "SELECT * FROM user WHERE email = :email AND is_admin = 2 ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if(password_verify($this->password, $row['password'])) {
+                $this->id = $row['id'];
+                $this->email = $row['email'];
+                return true;
+            }
+
+            return false;
+        }
+
+        #Doctors Login Model
+        public function login_patient() {
+            
+            $query = "SELECT * FROM user WHERE email = :email AND is_admin = 0 ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if(password_verify($this->password, $row['password'])) {
+                $this->id = $row['id'];
+                $this->email = $row['email'];
+                return true;
+            }
+
+            return false;
+        }
         
         #Change user password
         public function change_password($user_id) {
