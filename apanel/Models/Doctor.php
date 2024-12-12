@@ -31,6 +31,20 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        #View doctor profile
+        public function view_doctor_profile($doctor_id){
+            $this->doctor_id = $doctor_id;
+        
+            $query = "SELECT u.*, d.* FROM user u
+            JOIN doctors_info d ON u.user_id = d.user_id
+            WHERE u.user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':user_id', $this->doctor_id, PDO::PARAM_STR);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
 
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";

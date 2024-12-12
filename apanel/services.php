@@ -1,6 +1,6 @@
 <?php 
   require_once 'inc/header.php'; 
-  require_once 'Controllers/serviceCtrl.php';
+  require_once 'Controllers/dashboardCtrl.php';
 ?>
 
     <div class="pagetitle">
@@ -36,23 +36,20 @@
                       <div class="modal-body">
                                   
                         <!-- No Labels Form -->
-                        <form class="row g-3">
+                        <form class="row g-3" method="POST" action="Controllers/serviceCtrl.php">
                           <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Service">
+                            <input type="text" name="name" class="form-control" placeholder="Service" required>
                           </div>
                           <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Amount">
+                            <input type="text" name="amount" class="form-control" placeholder="Amount" required>
                           </div>
                           <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" name="create_service" class="btn btn-primary">Submit</button>
                             <button type="reset" class="btn btn-secondary">Reset</button>
                           </div>
                         </form><!-- End No Labels Form -->
 
                       </div>
-                      <!-- <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div> -->
                     </div>
                   </div>
                 </div><!-- End Vertically centered Modal-->
@@ -84,14 +81,44 @@
                           foreach ($services as $service) {     
                       ?>
                       <tr>
-                        <th scope="row"><a href="#">#1</a></th>
+                        <th scope="row"><a href="#"><?=$num++;?></a></th>
                         <td><?= $service['service'];?></td>
-                        <td>$<?= $service['amount'];?></td>
-                        <td><span class="badge bg-success"><?= $service['status'];?></span></td>
+                        <td>₦ <?= $service['amount'];?></td>
                         <td>
-                          <i class="bi bi-pen"></i> &nbsp; &nbsp;
-                          <i class="bi bi-trash"></i>
+                          <?php
+                            switch ($service['status']) {
+                              case '1':
+                                echo '<span class="badge bg-success">active</span>';
+                                break;
+                              
+                              default:
+                              echo '<span class="badge bg-danger">not active</span>';
+                                break;
+                            }
+                          ?>                          
                         </td>
+                        <td>
+                        <!-- Modal -->
+                        <div class="modal fade" id="<?=$service["id"];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Doctor</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to delete <?=$service['service'];?>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="Controllers/serviceCtrl.php?delete_service=<?=$service["id"];?>" class="btn btn-danger">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <a href="edit_service.php?service_id=<?=$service['id']?>" class="btn btn-sm btn-primary"><i class="bi bi-pen"></i> edit</a>
+                        <button type="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#<?=$service["id"];?>"><i class="bi bi-trash"></i>delete</button>
+                      </td>
                       </tr>
                       <?php
                           }

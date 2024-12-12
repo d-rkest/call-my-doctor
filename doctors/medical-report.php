@@ -1,11 +1,14 @@
-<?php require_once 'inc/header.php'; ?>
+<?php
+  require_once 'inc/header.php';
+  require_once '../Controllers/doctorCtrl.php'
+?>
 
     <div class="pagetitle">
-      <h1>Self Help</h1>
+      <h1>Medical Report</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Self help</li>
+          <li class="breadcrumb-item active">Medical report</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -14,11 +17,6 @@
       <div class="row">
 
         <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              
-              <h5 class="card-title">Medical Report</h5>
 
             <!-- Medical Report -->
             <div class="col-12">
@@ -39,12 +37,38 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php if (empty($user->fetch_report($_SESSION['user_id']))) { ?>
+                        <tr>
+                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="6" class="text-center text-secondary">No record found</th>
+                        </tr>
+                      <?php
+                        }  else { 
+                          $reports = $user->fetch_report($_SESSION['user_id']);
+                          $num=1;
+                          foreach ($reports as $report) {     
+                      ?>
                       <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Kolawole</td>
+                        <th scope="row"><?=$num++;?></th>
+                        <td><?= $report['fullname']; ?></td>
                         <td><a href="#" class="text-primary">Pathology Reports</a></td>
                         <td>28-10-2024</td>
-                        <td><span class="badge bg-warning">panding</span></td>
+                        <td>
+                          <?php
+                            switch ($report['status']) {
+                              case 'done':
+                                echo '<span class="btn btn-sm btn-success">done</span>';
+                                break;
+
+                              case 'cancelled':
+                                echo '<span class="btn btn-sm btn-danger">cancelled</span>';
+                                break;
+                              
+                              default:
+                              echo '<span class="btn btn-sm btn-warning">pending</span>';
+                                break;
+                            }
+                          ?>
+                        </td>
                         <td>
                           <span class=" badge bg-primary p-2">
                             <a href="analyze-medical-report.php" class="text-light"><i class="bi bi-eye"></i> view</a>
@@ -52,29 +76,10 @@
                         </td>
                       </tr>
                       <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Adebayo</td>
-                        <td><a href="#" class="text-primary">Imaging Reports</a></td>
-                        <td>21-10-2024</td>
-                        <td><span class="badge bg-success">done</span></td>
-                        <td>
-                          <span class=" badge bg-primary p-2">
-                            <a href="analyze-medical-report.php" class="text-light"><i class="bi bi-eye"></i> view</a>
-                          </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Princess</td>
-                        <td><a href="#" class="text-primary">Laboratory Reports</a></td>
-                        <td>05-10-2024</td>
-                        <td><span class="badge bg-success">done</span></td>
-                        <td>
-                          <span class=" badge bg-primary p-2">
-                            <a href="analyze-medical-report.php" class="text-light"><i class="bi bi-eye"></i> view</a>
-                          </span>
-                        </td>
-                      </tr>
+                      <?php
+                          }
+                        }
+                      ?>
                     </tbody>
                   </table>
 
@@ -82,9 +87,6 @@
 
               </div>
             </div><!-- End Recent Sales -->
-              
-            </div>
-          </div>
 
         </div>
 

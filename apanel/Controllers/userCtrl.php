@@ -45,7 +45,6 @@
         }
 
     }
-
     
     # Registering a new doctor
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_doctor'])) {
@@ -56,8 +55,9 @@
         $user->gender = $_POST['gender'];
         $user->phone = $_POST['phone'];
         $user->qualification = $_POST['qualification'];
-        $user->clinic_map = $_POST['clinic_map'];
         $user->address = $_POST['address'];
+        $user->specialization = $_POST['specialization'];
+        $user->clinic_map = $_POST['clinic_map'];
 
         if ($user->password = $_POST['password'] == $user->re_password = $_POST['re_password']) {
             
@@ -92,7 +92,7 @@
         $user->password = $_POST['password'];
 
         if ($user->login()) {
-            $_SESSION['id'] = $user->id;
+            $_SESSION['user_id'] = $user->user_id;
             $_SESSION['email'] = $user->email;
             $_SESSION['message'] = 'You are logged in';
             header('location: ../index.php');
@@ -120,6 +120,57 @@
             
             $_SESSION['error'] = 'New password does not match';
             header('location: ../change-password.php');
+        }
+    }
+
+    #Delete patient account
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["delete_patient_id"])) {
+
+        if ($user->delete_patient($_GET['delete_patient_id'])) {
+            $_SESSION['message'] = 'user deleted successfully';
+            header('location: ../patients.php');
+        } else {            
+            $_SESSION['error'] = 'unable to delete';
+            header('location: ../patients.php');
+        }
+    }
+
+    #Delete doctor account
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["delete_doctor_id"])) {
+
+        if ($user->delete_doctor($_GET['delete_doctor_id'])) {
+            $_SESSION['message'] = 'user deleted successfully';
+            header('location: ../doctors.php');
+        } else {            
+            $_SESSION['error'] = 'unable to delete';
+            header('location: ../doctors.php');
+        }
+    }
+
+    #Activate doctor account
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["activate_user"])) {
+
+        $user->status=$_POST["activate"];
+        $user_id=$_POST["doctor_id"];
+
+        if ($user->activate_doctor($_POST['doctor_id'])) {
+            $_SESSION['message'] = 'Doctor account activated';
+            header("location: ../view_doctor.php?doctor_id=$user_id");
+        } else {            
+            $_SESSION['error'] = 'unable to activate';
+            header("location: ../view_doctor.php?doctor_id=$user_id");
+        }
+    } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["suspend_user"])){
+
+        $user->status=$_POST["suspend"];
+        $user_id=$_POST["doctor_id"];
+        
+        if ($user->activate_doctor($_POST['doctor_id'])) {
+            $_SESSION['message'] = 'Doctor account suspended';
+            header("location: ../view_doctor.php?doctor_id=$user_id");
+        } else {            
+            $_SESSION['error'] = 'unable to suspend';
+            header("location: ../view_doctor.php?doctor_id=$user_id");
         }
     }
 

@@ -7,12 +7,16 @@
         public $id;
         public $gender;
         public $password;
+        public $old_password;
+        public $new_password;
+        public $confirm_password;
 
         public $user_id;
         public $fullname;
         public $phone;
         public $address;
         public $date_of_birth;
+        public $available;
         public $email;
         
         public function __construct($db) {
@@ -22,13 +26,16 @@
         #Doctors Registration
         public function register_doctor() {
 
-            $query = "INSERT INTO user SET email = :email, password = :password, user_id = :user_id";
+            $this->is_admin = 2;
+
+            $query = "INSERT INTO user SET email = :email, password = :password, user_id = :user_id, is_admin = :is_admin";
             $stmt = $this->conn->prepare($query);
                 $this->email = htmlspecialchars(strip_tags($this->email));
                 $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
             $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            $stmt->bindParam(':is_admin', $this->is_admin, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
 
@@ -40,6 +47,7 @@
                 $stmt->bindParam(':phone', $this->phone, PDO::PARAM_STR);
                 $stmt->bindParam(':qualification', $this->qualification, PDO::PARAM_STR);
                 $stmt->bindParam(':clinic_map', $this->clinic_map, PDO::PARAM_STR);
+                // $stmt->bindParam(':specialization', $this->specialization, PDO::PARAM_STR);
                 $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
                 $stmt->execute();
                 
@@ -111,7 +119,7 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if(password_verify($this->password, $row['password'])) {
-                $this->id = $row['id'];
+                $this->user_id = $row['user_id'];
                 $this->email = $row['email'];
                 return true;
             }
@@ -130,12 +138,25 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if(password_verify($this->password, $row['password'])) {
-                $this->id = $row['id'];
+                $this->user_id = $row['user_id'];
                 $this->email = $row['email'];
                 return true;
             }
 
             return false;
+        }
+        
+        #Activate Doctor Account
+        public function doctor_online_status($user_id) {
+            $this->user_id=$user_id;
+
+            $queryUser = "UPDATE doctors_info SET available = :available WHERE user_id = :user_id";
+            $stmtUser = $this->conn->prepare($queryUser);
+            $stmtUser->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            $stmtUser->bindParam(':available', $this->available, PDO::PARAM_INT);
+            $stmtUser->execute();
+
+            return true;
         }
         
         #Change user password
@@ -158,24 +179,13 @@
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
                 $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
-    
-                if ($stmt->execute()) {
-                    return true;
-                }
+                $stmt->execute();
+                
+                return true;
             }
 
             return false;
         }
-        
-        #Delete User Account
-        // public function deleteUser() {
-        //     $query = "DELETE FROM user, patient_info WHERE user_id = :user_id";
-        //     $stmt = $this->conn->prepare($query);
-        //     $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
-        //     $stmt->execute();
-        //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        //     return;
-        // }
         
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";

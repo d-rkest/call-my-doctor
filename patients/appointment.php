@@ -21,40 +21,58 @@
             <div class="card-body">
               <h5 class="card-title">Activities</h5>
 
-              <table class="table table-borderless datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Doctor</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row"><a href="#">#2457</a></th>
-                    <td>Dr. Brown</td>
-                    <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                    <td>28-10-2024 10:00am</td>
-                    <td><span class="badge bg-warning">panding</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2147</a></th>
-                    <td>Dr. Shun</td>
-                    <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                    <td>21-10-2024 10:00am</td>
-                    <td><span class="badge bg-success">done</span></td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">#2049</a></th>
-                    <td>Ashleigh Langosh</td>
-                    <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                    <td>05-10-2024 10:00am</td>
-                    <td><span class="badge bg-danger">missed</span></td>
-                  </tr>
-                </tbody>
-              </table>
+                  <table class="table table-borderless datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Doctor</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php if (empty($user->fetch_appointment($_SESSION['user_id']))) { ?>
+                        <tr>
+                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
+                        </tr>
+                      <?php
+                        }  else { 
+                          $appointments = $user->fetch_appointment($_SESSION['user_id']);
+                          $num=1;
+                          foreach ($appointments as $appointment) {     
+                      ?>
+                      <tr>
+                        <th scope="row"><a href="#"><?= $num; ?></a></th>
+                        <td><?= $appointment['fullname'];?></td>
+                        <td><a href="#" class="text-primary"><?= $appointment['service'] ?></a></td>
+                        <td><?= $appointment['date'] ?></td>
+                        <td><?= $appointment['time'] ?></td>
+                        <td>
+                          <?php
+                            switch ($appointment['appointment_status']) {
+                              case 'done':
+                                echo '<span class="badge bg-success">done</span>';
+                                break;
+
+                              case 'cancelled':
+                                echo '<span class="badge bg-danger">cancelled</span>';
+                                break;
+                              
+                              default:
+                              echo '<span class="badge bg-warning">pending</span>';
+                                break;
+                            }
+                          ?>
+                        </td>
+                      </tr>
+                      <?php
+                          }
+                        }
+                      ?>
+                    </tbody>
+                  </table>
 
             </div>
 

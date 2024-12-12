@@ -3,7 +3,7 @@
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
@@ -18,8 +18,66 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2>Dr. Shun Morphy</h2>
-              <h3>johndoe@gmail.com</h3>
+              <h2>Dr. <?= isset($profile['fullname']) ? $profile['fullname'] : 'Null'; ?></h2>
+                <?php
+                  switch ($profile['specialty']) {
+                    case '1':
+                      echo '<h3>General Practitional</h3>';
+                      break;
+
+                    case '2':
+                      echo '<h3>Optimologist</h3>';
+                      break;
+
+                    case '3':
+                      echo '<h3>Dermatologist</h3>';
+                      break;
+
+                    case '4':
+                      echo '<h3>Pediatrician</h3>';
+                      break;
+
+                    case '5':
+                      echo '<h3>Nutritionist</h3>';
+                      break;
+
+                    case '6':
+                      echo '<h3>Gynacologist</h3>';
+                      break;
+
+                    case '7':
+                      echo '<h3>Pharmacist</h3>';
+                      break;
+                    
+                    default:
+                    echo '<h3>Update code base</h3>';
+                      break;
+                  }
+                ?>
+              
+              <div class="border-top d-block w-100"></div><br>
+
+              <form action="../Controllers/userCtrl.php" method="post">
+
+                <?php if ($profile['available'] == 1) { ?>
+
+                  <h3 class="fw-bold">Available: <span class="badge bg-success">online</span></h3>
+                  <div class="col text-center">
+                    <input type="hidden" name="doctor_id" value="<?=$profile['user_id'];?>">
+                    <button class="btn btn-sm btn-danger" name="switch_off" type="submit"><i class="bi bi-eye-slash-fill"></i> &nbsp; Go offline</button>
+                  </div>
+
+                <?php } else { ?>
+
+                  <h3 class="fw-bold">Available:  <span class="badge bg-danger">offline</span></h3>
+                  <div class="col text-center">
+                    <input type="hidden" name="doctor_id" value="<?=$profile['user_id'];?>">
+                    <button class="btn btn-sm btn-success" name="switch_on" type="submit"><i class="bi bi-eye-fill"></i> &nbsp; switch on</button>
+                  </div>
+
+                <?php } ?>
+
+              </form>
             </div>
           </div>
 
@@ -53,35 +111,35 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="Shun Morphy" disabled>
+                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?= $profile['fullname']; ?>" disabled>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">Clinic Map</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                        <textarea name="about" class="form-control" id="about" style="height: 100px"><?= $profile['clinic_map']; ?></textarea>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="Aja, Lagos state">
+                        <input name="address" type="text" class="form-control" id="Address" value="<?= $profile['address']; ?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="(234) 486-3538 071">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="<?= $profile['phone']; ?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="shun@example.com">
+                        <input name="email" type="email" class="form-control" id="Email" value="<?= $profile['email']; ?>">
                       </div>
                     </div>
 

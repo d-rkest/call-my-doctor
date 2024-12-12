@@ -16,225 +16,203 @@
     <section class="section dashboard">
       <div class="row">
 
-        <div class="col-lg-12">
+        <div class="col-lg-6">
 
           <div class="card">
             <div class="card-body">
               
-              <h5 class="card-title">Select pain region</h5>
-              <p>Select your sex and the region you feel pain.</p>
-
-              <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+              <h5 class="card-title">SELECT GENDER & THE REGION YOU FEEL PAIN</h5>
+              <!-- <p>Select your sex and the region you feel pain.</p> -->
                 <div class="row">
-                  <div class="col-12 mt-3 text-center align-center">
-                    <img src="assets/img/body.jpeg" alt="body" width="150em">
-                  </div>
-                  <div class="col mt-3 text-center align-center">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                      <label class="form-check-label" for="inlineRadio1">Male</label>
+
+                  <form action="../Controllers/userCtrl.php" method="post">
+
+                    <div class="col mt-3 text-center align-center">
+                      <div class="form-check form-check-inline">
+                        <div class="col-12 mt-3 text-center align-center">
+                          <img src="assets/img/male-icon.png" alt="body" width="120em">
+                        </div>
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" required>
+                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <div class="col-12 mt-3 text-center align-center">
+                          <img src="assets/img/female-icon.jpg" alt="body" width="120em">
+                        </div>
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" required>
+                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                      </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                      <label class="form-check-label" for="inlineRadio2">Female</label>
+                    <div class="mt-3 text-center">
+                      <button class="btn btn-primary" name="select_gender" type="submit">Proceed</button>
                     </div>
-                  </div>
+                  
+                  </form>
+
                 </div>
-                  <div class="mt-3 text-center">
-                    <!-- <button class="btn btn-primary" type="submit">Call Doctor</button> -->
-                    <a href="available-doctors.php" class="btn btn-primary" type="submit">Call Doctor</a>
-                  </div>
-              </form>
               
             </div>
           </div>
 
         </div>
 
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              
-              <h5 class="card-title">Where do you feel pain</h5>
-              <p>Select your complain form the list below.</p>
-
-              <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-4 form-group mt-3">
-                    <select name="department" id="department" class="form-select" required="">
-                      <option value="">Select Complain</option>
-                      <option value="pain 1">Pain 1</option>
-                      <option value="pain 2">Pain 2</option>
-                      <option value="pain 3">Pain 3</option>
-                    </select>
-                  </div>
-                  <div class=" col-md-4 form-group mt-3">
-                    <!-- <button class="btn btn-primary" type="submit">Call Doctor</button> -->
-                    <a href="available-doctors.php" class="btn btn-primary" type="submit">Call Available Doctor</a>
-                  </div>
-                </div>
-              </form>
-              
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              
-              <h5 class="card-title">Which type of doctor</h5>
-              <p>Please select a doctor based on field/practice.</p>
-
-              <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-4 form-group mt-3">
-                    <select name="doctor" id="doctor" class="form-select" required="">
-                      <option value="">Select Doctor</option>
-                      <option value="Doctor 1">General practitional</option>
-                      <option value="Doctor 2">Optimologist</option>
-                      <option value="Doctor 3">Dermatologist</option>
-                      <option value="Doctor 3">Pediatrician</option>
-                    </select>
-                  </div>
-
-                  <div class=" col-md-4 form-group mt-3">
-                    <!-- <button class="btn btn-primary" type="submit">Call Doctor</button> -->
-                    <a href="available-doctors.php" class="btn btn-primary" type="submit">Call A Doctor</a>
-                  </div>
-                </div>
-              </form>
-              
-            </div>
-          </div>
-
-        </div>
-        
-        <div class="row">
+        <div class="col-lg-6">
           
-            <!-- Top Selling -->
-            <div class="col-12">
-              <div class="card top-selling overflow-auto">
+          <div class="col-lg-12">
 
-                <div class="card-body pb-0">
-                  <h5 class="card-title">Select a doctor</h5>
+            <div class="card">
+              <div class="card-body">
+                
+                <h5 class="card-title">WHERE DO YOU FEEL PAIN</h5>
+                <!-- <p>Select your complain form the list below.</p> -->
 
-                  <table class="table table-borderless">
-                    <thead>
-                      <tr>
-                        <th scope="col">Profile</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Department</th>
-                        <th scope="col">Ratings</th>
-                        <th scope="col">Available</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php if (empty($users->doctors())) { ?>
-                        <tr>
-                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="6" class="text-center text-secondary">No record found</th>
-                        </tr>
-                      <?php
-                        }  else { 
-                          $doctors = $users->doctors();
-                          $num=1;
-                          foreach ($doctors as $doctor) {     
-                      ?>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Brown</a></td>
-                        <td>Optimologist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-half"style="color:gold;"></i>
-                        </td>
-                        <td><span class="badge bg-success">available</span></td>
-                        <td>
-                        <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i> | </a></span>
-                        <span><a href="fix-appointment.php"><i class="bi bi-envelope h2 text-primary"></i></a></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Morphie</a></td>
-                        <td>Cardiologist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-half"style="color:gold;"></i>
-                        </td>
-                        <td><span class="badge bg-danger">not available</span></td>
-                        <td>
-                        <span><a href="fix-appointment.php"><i class="bi bi-envelope h2 text-primary"></i></a></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Kyle</a></td>
-                        <td>Gynacologist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                        </td>
-                        <td><span class="badge bg-success">available</span></td>
-                        <td>
-                        <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i> | </a></span>
-                        <span><a href="fix-appointment.php"><i class="bi bi-envelope h2 text-primary"></i></a></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Melindes</a></td>
-                        <td>Nutritionist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                        </td>
-                        <td><span class="badge bg-success">available</span></td>
-                        <td>
-                        <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i> | </a></span>
-                        <span><a href="fix-appointment.php"><i class="bi bi-envelope h2 text-primary"></i></a></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Clare</a></td>
-                        <td>Pharmacist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-half"style="color:gold;"></i>
-                        </td>
-                        <td><span class="badge bg-success">available</span></td>
-                        <td>
-                        <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i> | </a></span>
-                        <span><a href="fix-appointment.php"><i class="bi bi-envelope h2 text-primary"></i></a></span>
-                        </td>
-                      </tr>
-                      <?php
-                          }
-                        }
-                      ?>
-                    </tbody>
-                  </table>
-
-                </div>
-
+                <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                  <div class="row">
+                    <div class="col-md-8 form-group mt-3">
+                      <select name="department" id="department" class="form-select" required="">
+                        <option value="" disabled>Select...</option>
+                        <?php 
+                          $spcialty = $user->get_pain();
+                          if (empty($user->get_pain())) { 
+                            
+                          }  else { 
+                            $pains = $user->get_pain();
+                            $num=1;
+                            foreach ($pains as $pain) {     
+                        ?>
+                          <option value="<?=$pain['pain_id']?>"><?=$pain['region']?></option>
+                        <?php } } ?>
+                      </select>
+                    </div>
+                    <div class=" col-md-4 form-group mt-3">
+                      <!-- <button class="btn btn-primary" type="submit">Call Doctor</button> -->
+                      <a href="available-doctors.php" class="btn btn-primary" type="submit"><i class="bi bi-phone-vibrate-fill"></i> Call</a>
+                    </div>
+                  </div>
+                </form>
+                
               </div>
-            </div><!-- End Top Selling -->
+            </div>
+
+          </div>
+
+          <div class="col-lg-12">
+
+            <div class="card">
+              <div class="card-body">
+                
+                <h5 class="card-title">WHICH TYPE OF DOCTOR</h5>
+                <!-- <p>Please select a doctor based on field/practice.</p> -->
+
+                <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                  <div class="row">
+                    <div class="col-md-8 form-group mt-3">
+                      <select name="doctor" id="doctor" class="form-select" required="">
+                        <?php 
+                          $spcialties = $user->get_specialization();
+                          if (empty($user->get_specialization())) { ?>
+                            <option value="" disabled>Select...</option>
+                        <?php
+                          }  else { 
+                            $specialties = $user->get_specialization();
+                            $num=1;
+                            foreach ($specialties as $specialty) {     
+                        ?>
+                          <option value="<?=$specialty['specialization_id']?>"><?=$specialty['specialization']?></option>
+                        <?php } } ?>
+                      </select>
+                    </div>
+
+                    <div class=" col-md-4 form-group mt-3">
+                      <a href="available-doctors.php" class="btn btn-primary" type="submit"><i class="bi bi-phone-vibrate-fill"></i> Call</a>
+                    </div>
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
+
+      <div class="row">
+        
+          <!-- Appointments -->
+          <div class="col-12">
+            <div class="card top-selling overflow-auto">
+
+              <div class="card-body pb-0">
+                <h5 class="card-title">BOOK APPOINTMENT OR CALL AVAILABLE DOCTOR</h5>
+
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th scope="col">Profile</th>
+                      <th scope="col">Doctor</th>
+                      <th scope="col">Specialization</th>
+                      <th scope="col">No. of patient</th>
+                      <th scope="col">Ratings</th>
+                      <th scope="col">Reviews</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php if (empty($user->doctors())) { ?>
+                      <tr>
+                        <th scope="row" style="vertical-align: middle;height:60px" colSpan="6" class="text-center text-secondary">No record found</th>
+                      </tr>
+                    <?php
+                      }  else { 
+                        $doctors = $user->doctors();
+                        $num=1;
+                        foreach ($doctors as $doctor) {     
+                    ?>
+                    <tr>
+                      <th scope="row"><a href="reviews.php?doctor_id=<?=$doctor["user_id"]?>"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
+                      <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"]?>" class="text-primary fw-bold">Dr. <?= $doctor["fullname"]; ?></a></td>
+                      <td><?= $doctor["specialty"]; ?></td>
+                      <td><?= $doctor["no_of_patient"]; ?></td>
+                      <td><?= $doctor['ratings']; ?></td>
+                      <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"];?>" class="text-primary fw-bold"><?= $doctor["reviews"]; ?></a></td>
+                      <td>
+                        <?php
+                          switch ($doctor['available']) {
+                            case '1':
+                              echo '<span class="badge bg-success">available</span>';
+                              break;
+                            
+                            default:
+                            echo '<span class="badge bg-danger">not available</span>';
+                              break;
+                          }
+                        ?>
+                      </td>
+                      <td>
+                        <?php if ($doctor['available'] == 1) { ?>
+                          <span><a href="#"><i class="bi bi-phone-vibrate h4 text-success"></i> | </a></span>
+                          <span><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope h4 text-primary"></i></a></span>
+                        <?php  } else { ?>
+                          <span><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope h4 text-primary"></i></a></span>
+                        <?php } ?>
+                      </td>
+                    </tr>
+                    <?php
+                        }
+                      }
+                    ?>
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div><!-- End Top Selling -->
+      </div>
+
     </section>
 
 <?php require_once 'inc/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
-  require_once 'Controllers/patientCtrl.php';
   require_once 'inc/header.php'; 
+  require_once 'Controllers/patientCtrl.php';
 ?>
 
     <div class="pagetitle">
@@ -125,23 +125,40 @@
                         <?php
                           switch ($patient['status']) {
                             case 'active':
-                              echo '<span class="btn btn-sm btn-success">active</span>';
+                              echo '<span class="badge bg-success">active</span>';
                               break;
 
                             case 'inactive':
-                              echo '<span class="btn btn-sm btn-danger">inactive</span>';
+                              echo '<span class="badge bg-danger">inactive</span>';
                               break;
                             
                             default:
-                            echo '<span class="btn btn-sm btn-warning">pending</span>';
+                            echo '<span class="badge bg-warning">pending</span>';
                               break;
                           }
                         ?>
                       </td>
                       <td>
-                        <span><a href="#"><i class="bi bi-pen h5 text-success"></i></a></span>
-                        <span><a href="view_patient.php?id=<?= $patient['user_id']; ?>"><i class="bi bi-eye h5 text-primary"></i></a></span>
-                        <span><a href="#"><i class="bi bi-trash h5 text-danger"></i></a></span>
+                        <!-- Modal -->
+                        <div class="modal fade" id="<?=$patient["user_id"];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Patient</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Are you sure you want to delete <?=$patient['fullname'];?>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="Controllers/userCtrl.php?delete_patient_id=<?=$patient["user_id"];?>" class="btn btn-danger">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <a href="view_patient.php?patient_id=<?=$patient['user_id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
+                        <button type="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#<?=$patient["user_id"];?>"><i class="bi bi-trash"></i>delete</button>
                       </td>
                     </tr>
                     <?php

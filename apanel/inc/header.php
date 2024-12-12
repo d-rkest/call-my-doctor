@@ -1,4 +1,9 @@
-<?php require_once '../config/sessionConfig.php'; ?>
+<?php
+  require_once '../config/sessionConfig.php';
+  require_once './Controllers/adminCtrl.php';
+  $admin = $user->admin_profile($_SESSION['user_id']);
+  $setting = $user->fetch_settings();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -255,7 +260,15 @@
           <i class="bi bi-cash"></i>
           <span>Payment</span>
         </a>
-      </li><!-- End Services Nav -->
+      </li><!-- End Payment Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="pains.php">
+          <i class="bi bi-bandaid"></i>
+          <span>Pains</span>
+        </a>
+      </li> -->
+      <!-- End Pains Section Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="settings.php">

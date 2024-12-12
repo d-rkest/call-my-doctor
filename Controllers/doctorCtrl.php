@@ -6,42 +6,36 @@
     $database = new Database();
     $db = $database->getConnection();
 
-    $users = new Doctor($db);
+    $user = new Doctor($db);
 
-    $user_id = $_SESSION['id'];
+    $user_id = $_SESSION['user_id'];
     
     #All appointments
-    if ($users->fetch_appointment($user_id)) {
-
-        return $users->fetch_appointment($user_id);
+    if ($user->fetch_appointment($user_id)) {
+        return $user->fetch_appointment($user_id);
     }
     
-    #All reports
-    if ($users->fetch_report()) {
-
-        return $users->fetch_report();
+    #All medical reports
+    if ($user->fetch_report($user_id)) {
+        return $user->fetch_report($user_id);
     }
-    
-    #All reports
-    if ($users->fetch_profile()) {
-
-        return $users->fetch_profile();
-    }
-    
+        
     #Row count of appointments
-    if ($users->count_appointment()) {
-
-        $appointmentCount = $users->fetch_users();
+    if (isset($_SESSION['user_id'])) {
+        $aCount = $user->count_appointment($_SESSION['user_id']);
     }
     
     #Row count of available doctors
-    if ($users->count_pending_report()) {
-
-        $pendingReportCount = $users->count_pending_report();
+    if (isset($_SESSION['user_id'])) {
+        $prCount = $user->count_pending_report($_SESSION['user_id']);
     }
     
     #Row count of approved applications
-    if ($users->count_report()) {
+    if (isset($_SESSION['user_id'])) {
+        $rCount = $user->count_report($_SESSION['user_id']);
+    }
 
-        $reportCount = $users->count_report();
+    if (isset($_SESSION['user_id'])) {
+        $profile = $user->user_profile($_SESSION['user_id']);
+
     }

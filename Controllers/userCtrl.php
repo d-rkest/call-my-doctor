@@ -46,6 +46,15 @@
 
     }
 
+    #Select pain region
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['select_gender'])) {
+
+        if ($_POST["gender"] === "male") {
+            header('Location: ../patients/male-region.php');
+        } elseif ($_POST["gender"] === "female") {
+            header('Location: ../patients/female-region.php');
+        }
+    } 
     
     # Registering a new doctor
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_doctor'])) {
@@ -65,23 +74,49 @@
             # Check if username already exists
             if ($user->checkUserExists()) {
                 $_SESSION['error'] = "Email Has been registered";
-                header('location: ../doctors.php');
+                header('location: ../doctors/register.php');
                 return;
             }
 
             if($user->register_doctor()) {
                 $_SESSION['message'] = 'Registration successful.';
-                header('location: ../doctors.php');
+                header('location: ../doctors/login.php');
             } else {
                 $_SESSION['error'] = 'Error registering doctor';
-                header('location: ../doctors.php');
+                header('location: ../doctors/register.php');
             }
 
         } else {
             $_SESSION['error'] = "Password mismatch";
-            header('location: ../doctors.php');
+            header('location: ../doctors/register.php');
         }
 
+    }
+
+    #Switch online status
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["switch_off"])) {
+
+        $user->available = 0;
+
+        if ($user->doctor_online_status($_POST['doctor_id'])) {
+            $_SESSION['message'] = 'you have gone offline';
+            header("location: ../doctors/profile.php");
+        } else {
+            $_SESSION['error'] = 'sorry, something went wrong';
+            header("location: ../doctors/profile.php");
+        }
+
+    } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["switch_on"])){
+
+        $user->available = 1;
+        
+        if ($user->doctor_online_status($_POST['doctor_id'])) {
+            $_SESSION['message'] = 'you are back online';
+            header("location: ../doctors/profile.php");
+        } else {
+            $_SESSION['error'] = 'sorry, something went wrong';
+            header("location: ../doctors/profile.php");
+        }
     }
 
     #Login statement
@@ -108,7 +143,7 @@
         $user->password = $_POST['password'];
 
         if ($user->login_doctor()) {
-            $_SESSION['id'] = $user->id;
+            $_SESSION['user_id'] = $user->user_id;
             $_SESSION['email'] = $user->email;
             $_SESSION['message'] = 'You are logged in';
             header('location: ../doctors/index.php');
@@ -125,7 +160,7 @@
         $user->password = $_POST['password'];
 
         if ($user->login_patient()) {
-            $_SESSION['id'] = $user->id;
+            $_SESSION['user_id'] = $user->user_id;
             $_SESSION['email'] = $user->email;
             $_SESSION['message'] = 'You are logged in';
             header('location: ../patients/index.php');
@@ -136,23 +171,25 @@
     }
 
     #Reset password
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset_password"])) {
         
-        $user->old_password = $_POST['old_password'];
+        $user_id = $_POST["user_id"];
+        $user->old_password = $_POST['password'];
+        $user->new_password = $_POST['new-password'];
 
-        if ($user->new_password = $_POST['new_password'] === $$user->confirm_password = $_POST['confirm_password']) {
+        if ($_POST['new-password'] === $_POST['retype-password']) {
             
-            if ($user->change_password($_SESSION['user_id'])) { // TODO : Creat session for user_id
+            if ($user->change_password($user_id)) {
                 $_SESSION['message'] = 'Password reset successful';
-                header('location: ./settings.php');
+                header('location: ../patients/profile.php');
             } else {
-                $_SESSION['error'] = 'Error, please try again';
-                header('location: ../change-password.php');
+                $_SESSION['warning'] = 'Error, please try again';
+                header('location: ../patients/profile.php');
             }
+
         } else {
-            
             $_SESSION['error'] = 'New password does not match';
-            header('location: ../change-password.php');
+            header('location: ../patients/profile.php');
         }
     }
 

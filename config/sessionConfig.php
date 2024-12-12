@@ -1,7 +1,9 @@
 <?php
     session_start();
 
-	if(empty($_SESSION['id'])){
+	$user_id = $_SESSION['user_id'];
+
+	if(empty($user_id)){
 		header('Location: ./login.php');
 		exit();
 	}

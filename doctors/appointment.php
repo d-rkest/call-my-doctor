@@ -5,7 +5,6 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item"><a href="call-a-doctor.php">Call A Doctor</a></li>
           <li class="breadcrumb-item active">Appointment</li>
         </ol>
       </nav>
@@ -22,11 +21,11 @@
 
               <div class="d-flex justify-content-between">
                 <h5 class="card-title">Appointments</h5>
-                <span class="p-3"><a href="#" class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#verticalycentered">+ Create</a></span>
+                <!-- <span class="p-3"><a href="#" class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#verticalycentered">+ Create</a></span> -->
               </div>
 
               
-              <div class="modal fade" id="verticalycentered" tabindex="-1">
+              <!-- <div class="modal fade" id="verticalycentered" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -34,8 +33,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                                
-                      <!-- No Labels Form -->
+                      
                       <form class="row g-3">
                         <div class="col-md-12">
                           <input type="text" class="form-control" placeholder="Your Name">
@@ -64,15 +62,13 @@
                           <button type="submit" class="btn btn-primary">Submit</button>
                           <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
-                      </form><!-- End No Labels Form -->
+                      </form>
 
                     </div>
-                    <!-- <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div> -->
                   </div>
                 </div>
-              </div><!-- End Vertically centered Modal-->
+              </div> -->
+              <!-- End Vertically centered Modal-->
 
               <table class="table table-borderless datatable">
                 <thead>
@@ -82,55 +78,54 @@
                     <th scope="col">Service</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
-                    <th scope="col">Amount</th>
                     <th scope="col">Link</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <?php if (empty($user->fetch_appointment($_SESSION['user_id']))) { ?>
+                    <tr>
+                      <th scope="row" style="vertical-align: middle;height:100px" colSpan="7" class="text-center text-secondary">No record found</th>
+                    </tr>
+                  <?php
+                    }  else { 
+                      $appointments = $user->fetch_appointment($_SESSION['user_id']);
+                      $num=1;
+                      foreach ($appointments as $appointment) {     
+                  ?>
                   <tr>
                     <th scope="row"><a href="#">1</a></th>
-                    <td>Adebayo</td>
-                    <td>Pediatrician</td>
-                    <td>01-11-2024</td>
-                    <td>08:00AM</td>
-                    <td>$34</td>
-                    <td><a href="#" class="text-primary">Link to meeting, Zoom</a></td>
-                    <td><span class="badge bg-success">completed</span></td>
+                    <td><?= $appointment['fullname'] ?></td>
+                    <td><?= $appointment['service'] ?></td>
+                    <td><?= $appointment['date'] ?></td>
+                    <td><?= $appointment['time'] ?></td>
+                    <td><a href="<?= $appointment['link'] ?>" target="_blank" class="text-primary">Link to meeting, Zoom</a></td>
                     <td>
-                      <i class="bi bi-pen h4"></i> &nbsp; &nbsp;
-                      <i class="bi bi-trash h4 text-danger"></i>
+                    <?php
+                      switch ($appointment['appointment_status']) {
+                        case 'done':
+                          echo '<span class="badge bg-success">done</span>';
+                          break;
+
+                        case 'cancelled':
+                          echo '<span class="badge bg-danger">cancelled</span>';
+                          break;
+                        
+                        default:
+                        echo '<span class="badge bg-warning">pending</span>';
+                          break;
+                      }
+                    ?>
+                    </td>
+                    <td>
+                      <a href="#" class="btn btn-sm btn-success fw-bold"><i class="bi bi-check-all"></i>approve</a>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row"><a href="#">2</a></th>
-                    <td>Kingley</td>
-                    <td>Optimologist</td>
-                    <td>01-11-2024</td>
-                    <td>10:00AM</td>
-                    <td>$22</td>
-                    <td><a href="#" class="text-primary">Link to meeting, Zoom</a></td>
-                    <td><span class="badge bg-warning">panding</span></td>
-                    <td>
-                      <i class="bi bi-pen h4"></i> &nbsp; &nbsp;
-                      <i class="bi bi-trash h4 text-danger"></i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><a href="#">3</a></th>
-                    <td>Emeka</td>
-                    <td>Pharmacist</td>
-                    <td>01-11-2024</td>
-                    <td>04:00PM</td>
-                    <td>$15</td>
-                    <td><a href="#" class="text-primary">Link to meeting, Zoom</a></td>
-                    <td><span class="badge bg-danger">cancelled</span></td>
-                    <td>
-                      <i class="bi bi-pen h4"></i> &nbsp; &nbsp;
-                      <i class="bi bi-trash h4 text-danger"></i>
-                    </td>
-                  </tr>
+                  <?php
+                      }
+                    }
+                  ?>
                 </tbody>
               </table>
 

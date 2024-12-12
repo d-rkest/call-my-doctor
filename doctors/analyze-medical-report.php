@@ -5,27 +5,15 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Medical Report</li>
+          <li class="breadcrumb-item"><a href="index.php">Medical Report</a></li>
+          <li class="breadcrumb-item active">Analyze Medical Report</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section profile">
       <div class="row">
-        <div class="col-xl-4">
-
-          <div class="card">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-              <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2>John Doe</h2>
-              <h3>johndoe@gmail.com</h3>
-              
-            </div>
-          </div>
-
-        </div>
-
+        
         <div class="col-xl-8">
 
           <div class="card">

@@ -1,6 +1,5 @@
 <?php
   require_once 'inc/header.php';
-  require_once '../Controllers/patientCtrl.php';
 ?>
 
     <div class="pagetitle">
@@ -32,7 +31,7 @@
                       <i class="bi bi-book"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?= isset($doctorCount) ? $doctorCount : 0; ?></h6>
+                      <h6><?= isset($dCount) ? $dCount : 0; ?></h6>
                       <a href="available-doc.php"><span class="text-success small pt-1 fw-bold">view</span></a>
                     </div>
                   </div>
@@ -53,7 +52,7 @@
                       <i class="bi bi-file"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?= isset($appointmentCount) ? $appointmentCount : 0; ?></h6>
+                      <h6><?= isset($aCount) ? $aCount : 0; ?></h6>
                       <a href="appointment.php"><span class="text-success small pt-1 fw-bold">view</span></a>
 
                     </div>
@@ -76,8 +75,8 @@
                       <i class="bi bi-hospital"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?= isset($reportCount) ? $reportCount : 0; ?></h6>
-                      <span class="text-danger small pt-1 fw-bold">view</span>
+                      <h6><?= isset($rCount) ? $rCount : 0; ?></h6>
+                      <a href="medical-report.php"><span class="text-danger small pt-1 fw-bold">view</span></a>
                     </div>
                   </div>
 
@@ -91,49 +90,53 @@
               <div class="card recent-sales overflow-auto">
 
                 <div class="card-body">
-                  <h5 class="card-title">Activities</h5>
+                  <h5 class="card-title">Appointments</h5>
 
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Doctor</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Service</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Time</th>
                         <th scope="col">Status</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php if (empty($users->fetch_appointment())) { ?>
+                      <?php if (empty($user->fetch_appointment($_SESSION['user_id']))) { ?>
                         <tr>
                           <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
                         </tr>
                       <?php
                         }  else { 
-                          $appointments = $users->fetch_appointment();
+                          $appointments = $user->fetch_appointment($_SESSION['user_id']);
                           $num=1;
                           foreach ($appointments as $appointment) {     
                       ?>
                       <tr>
-                        <th scope="row"><a href="#"><?= $num; ?></a></th>
+                        <th scope="row"><a href="#"><?= $num++; ?></a></th>
                         <td><?= $appointment['fullname'];?></td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>28-10-2024 10:00am</td>
-                        <td><span class="badge bg-warning">panding</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Dr. Shun</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>21-10-2024 10:00am</td>
-                        <td><span class="badge bg-success">done</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>05-10-2024 10:00am</td>
-                        <td><span class="badge bg-danger">missed</span></td>
+                        <td><a href="#" class="text-primary"><?= $appointment['service'] ?></a></td>
+                        <td><?= $appointment['date'] ?></td>
+                        <td><?= $appointment['time'] ?></td>
+                        <td>
+                          <?php
+                            switch ($appointment['appointment_status']) {
+                              case 1:
+                                echo '<span class="badge bg-success">done</span>';
+                                break;
+
+                              case 0:
+                                echo '<span class="badge bg-warning">pending</span>';
+                                break;
+                              
+                              default:
+                              echo '<span class="badge bg-danger">cancelled</span>';
+                                break;
+                            }
+                          ?>
+                        </td>
                       </tr>
                       <?php
                           }

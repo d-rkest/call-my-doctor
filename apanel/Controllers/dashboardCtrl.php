@@ -2,34 +2,49 @@
     # session_start();
     require_once '../config/databaseConfig.php';
     require_once './Models/Dashboard.php';
+    require_once './Models/Service.php';
+    require_once './Models/Pain.php';
 
     $database = new Database();
     $db = $database->getConnection();
 
-    $users = new Dashboard($db);
+    $data = new Dashboard($db);
+    $service = new Service($db);
+    $pain = new Pain($db);
 
-    $user_id = $_SESSION['id'];
+    $user_id = $_SESSION['user_id'];
     
     #All appointments
-    if ($users->fetch_appointment()) {
+    if ($data->fetch_appointment()) {
 
-        return $users->fetch_appointment();
+        return $data->fetch_appointment();
     }
     
     #Row count of services
-    if ($users->count_services()) {
+    if ($data->count_services()) {
 
-        $serviceCount = $users->count_services();
+        $serviceCount = $data->count_services();
+    }
+    
+    #fetch services
+    if ($service->fetch_services()) {
+
+        return $service->fetch_services();
+    }
+    
+    #fetch pains
+    if ($pain->fetch_pains()) {
+
+        return $pain->fetch_pains();
     }
     
     #Row count of doctors
-    if ($users->count_doctors()) {
-
-        $doctorCount = $users->count_doctors();
+    if ($data->count_doctors()) {
+        $doctorCount = $data->count_doctors();
     }
     
     #Row count of patient
-    if ($users->count_patient()) {
+    if ($data->count_patient()) {
 
-        $patientCount = $users->count_patient();
+        $patientCount = $data->count_patient();
     }

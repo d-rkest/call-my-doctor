@@ -1,6 +1,9 @@
 <?php
   require_once 'inc/header.php';
-  require_once  'Controllers/dashboardCtrl.php'; 
+  require_once  'Controllers/dashboardCtrl.php';
+  $serviceCount = $data->count_services();
+  $doctorCount = $data->count_doctors();
+  $patientCount = $data->count_patient();
 ?>
 
     <div class="pagetitle">
@@ -99,7 +102,7 @@
                       <i class="bi bi-cash"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$873</h6>
+                      <h6>$---</h6>
                       <span class="text-danger small pt-1 fw-bold"><a href="medical-report.php">view</a></span>
                     </div>
                   </div>
@@ -129,13 +132,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php if (empty($users->fetch_appointment())) { ?>
+                      <?php if (empty($data->fetch_appointment())) { ?>
                         <tr>
                           <th scope="row" style="vertical-align: middle;height:100px" colSpan="7" class="text-center text-secondary">No record found</th>
                         </tr>
                       <?php
                         }  else { 
-                          $appointments = $users->fetch_appointment();
+                          $appointments = $data->fetch_appointment();
                           $num=1;
                           foreach ($appointments as $appointment) {     
                       ?>

@@ -1,4 +1,8 @@
-<?php require_once 'inc/header.php';?>
+<?php
+  require_once 'inc/header.php';
+  require_once 'Controllers/doctorCtrl.php';
+  $doctor = $user->view_doctor_profile($_GET['doctor_id']);
+?>
     <div class="pagetitle">
       <h1>Profile</h1>
       <nav>
@@ -17,9 +21,63 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2>John Doe</h2>
-              <h3>johndoe@gmail.com</h3>
+              <img src="assets/img/profile.jpg" alt="Profile" class="rounded-circle">
+              <h2><?=$doctor['fullname'];?></h2>
+                <?php
+                  switch ($doctor['specialty']) {
+                    case '1':
+                      echo '<h3>General Practitional</h3>';
+                      break;
+
+                    case '2':
+                      echo '<h3>Optimologist</h3>';
+                      break;
+
+                    case '3':
+                      echo '<h3>Dermatologist</h3>';
+                      break;
+
+                    case '4':
+                      echo '<h3>Pediatrician</h3>';
+                      break;
+
+                    case '5':
+                      echo '<h3>Nutritionist</h3>';
+                      break;
+
+                    case '6':
+                      echo '<h3>Gynacologist</h3>';
+                      break;
+
+                    case '7':
+                      echo '<h3>Pharmacist</h3>';
+                      break;
+                    
+                    default:
+                    echo '<h3>Update code base</h3>';
+                      break;
+                  }
+                ?>
+              
+              <div class="border-top d-block w-100"></div><br>
+              <form action="Controllers/userCtrl.php" method="post">
+                <?php if ($doctor['status'] == 'active') { ?>
+                  <input type="hidden" name="suspend" value="pending">
+                  <input type="hidden" name="doctor_id" value="<?=$doctor['user_id'];?>">
+                  <h3 class="fw-bold">Account status:  <span class="badge bg-success"><?=$doctor['status'];?></span></h3>
+                  <div class="col text-center">
+                    <button class="btn btn-primary d-inline-flex" name="suspend_user" type="submit">Suspend</button>
+                  </div>
+                <?php } else { ?>
+                  <input type="hidden" name="activate" value="active">
+                  <input type="hidden" name="doctor_id" value="<?=$doctor['user_id'];?>">
+                  <h3 class="fw-bold">Account status:  <span class="badge bg-warning"><?=$doctor['status'];?></span></h3>
+                  <div class="col text-center">
+                    <button class="btn btn-success" name="activate_user" type="submit">Activate</button>
+                  </div>
+                <?php } ?>
+              </form>
+
             </div>
           </div>
 
@@ -33,11 +91,7 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                </li>
-
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                 </li>
 
                 <li class="nav-item">
@@ -47,94 +101,43 @@
               </ul>
               <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-
-                  <h5 class="card-title">Profile Details</h5>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">John Doe</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Gender</div>
-                    <div class="col-lg-9 col-md-8">Male</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Blood Group</div>
-                    <div class="col-lg-9 col-md-8">O+</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Genotype</div>
-                    <div class="col-lg-9 col-md-8">AA</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Address</div>
-                    <div class="col-lg-9 col-md-8">Lagos, Nigeria</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">(234) 486-353 2907</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">johndoe@example.com</div>
-                  </div>
-
-                </div>
-
-                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
                   <form>
-                    <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/profile-img.jpg" alt="Profile">
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?= $doctor['fullname']; ?>" disabled>
                       </div>
                     </div>
 
-                    <!-- <div class="row mb-3">
-                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">Clinic Map</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                        <textarea name="about" class="form-control" id="about" style="height: 100px"><?= $doctor['clinic_map']; ?></textarea>
                       </div>
-                    </div> -->
+                    </div>
 
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                        <input name="address" type="text" class="form-control" id="Address" value="<?= $doctor['address']; ?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="<?= $doctor['phone']; ?>">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                        <input name="email" type="email" class="form-control" id="Email" value="<?= $doctor['email']; ?>">
                       </div>
                     </div>
 

@@ -12,3 +12,8 @@
 
         return $user->fetch_doctors();
     }
+
+    #view doctor profile
+    if(isset($_GET['doctor_id'])){
+        return $user->view_doctor_profile($_GET['doctor_id']);
+    }

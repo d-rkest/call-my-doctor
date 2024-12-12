@@ -20,6 +20,10 @@
 <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 <script src="assets/vendor/php-email-form/validate.js"></script>
 
+<!-- Product -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/product-main.js"></script>
+
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 

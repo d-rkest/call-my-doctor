@@ -7,7 +7,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -15,7 +15,6 @@
 
     <section class="section dashboard">
       <div class="row">
-
         <!-- Left side columns -->
         <div class="col-lg-12">
           <div class="row">
@@ -32,7 +31,7 @@
                       <i class="bi bi-book"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?= isset($appointmentCount) ? $appointmenttCount : 0; ?></h6>
+                      <h6><?= isset($aCount) ? $aCount : 0; ?></h6>
                       <span class="text-success small pt-1 fw-bold"><a href="appointment.php">view</a></span>
                     </div>
                   </div>
@@ -53,7 +52,7 @@
                       <i class="bi bi-file"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?= isset($pendingReportCount) ? $pendingReportCount : 0; ?></h6>
+                      <h6><?= isset($prCount) ? $prCount : 0; ?></h6>
                       <span class="text-success small pt-1 fw-bold"><a href="pending-reports.php">view</a></span>
 
                     </div>
@@ -76,7 +75,7 @@
                       <i class="bi bi-hospital"></i>
                     </div>
                     <div class="ps-3">
-                      <h6><?= isset($reportCount) ? $reportCount : 0; ?></h6>
+                      <h6><?= isset($rCount) ? $rCount : 0; ?></h6>
                       <span class="text-danger small pt-1 fw-bold"><a href="medical-report.php">view</a></span>
                     </div>
                   </div>
@@ -102,39 +101,52 @@
                     <th scope="col">Service</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
-                    <th scope="col">Amount</th>
                     <th scope="col">Link</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <?php if (empty($user->fetch_appointment($_SESSION['user_id']))) { ?>
+                    <tr>
+                      <th scope="row" style="vertical-align: middle;height:100px" colSpan="7" class="text-center text-secondary">No record found</th>
+                    </tr>
+                  <?php
+                    }  else { 
+                      $appointments = $user->fetch_appointment($_SESSION['user_id']);
+                      $num=1;
+                      foreach ($appointments as $appointment) {     
+                  ?>
                   <tr>
-                    <th scope="row"><a href="#">2</a></th>
-                    <td>Kingley</td>
-                    <td>Optimologist</td>
-                    <td>01-11-2024</td>
-                    <td>10:00AM</td>
-                    <td>$22</td>
-                    <td><a href="#" class="text-primary">Link to meeting, Zoom</a></td>
-                    <td><span class="badge bg-warning">panding</span></td>
+                    <th scope="row"><a href="#"><?=$num++?></a></th>
+                    <td><?= $appointment['fullname'] ?></td>
+                    <td><?= $appointment['service'] ?></td>
+                    <td><?= $appointment['date'] ?></td>
+                    <td><?= $appointment['time'] ?></td>
+                    <td><a href="<?= $appointment['link'] ?>" class="text-primary">Link to meeting, Zoom</a></td>
                     <td>
-                      <i class="bi bi-phone h4 text-success"></i> &nbsp; &nbsp;
+                    <?php
+                      switch ($appointment['appointment_status']) {
+                        case 'done':
+                          echo '<span class="btn btn-sm btn-success">done</span>';
+                          break;
+
+                        case 'cancelled':
+                          echo '<span class="btn btn-sm btn-danger">cancelled</span>';
+                          break;
+                        
+                        default:
+                        echo '<span class="btn btn-sm btn-warning">pending</span>';
+                          break;
+                      }
+                    ?>
                     </td>
+                    <td><a href="<?= $appointment['link'] ?>"><i class="bi bi-phone h4 text-success"></i> &nbsp; &nbsp;</a></td>
                   </tr>
-                  <tr>
-                    <th scope="row"><a href="#">3</a></th>
-                    <td>Emeka</td>
-                    <td>Pharmacist</td>
-                    <td>01-11-2024</td>
-                    <td>04:00PM</td>
-                    <td>$15</td>
-                    <td><a href="#" class="text-primary">Link to meeting, Zoom</a></td>
-                    <td><span class="badge bg-warning">pending</span></td>
-                    <td>
-                      <i class="bi bi-phone h4 text-success"></i> &nbsp; &nbsp;
-                    </td>
-                  </tr>
+                  <?php
+                      }
+                    }
+                  ?>
                 </tbody>
               </table>
 

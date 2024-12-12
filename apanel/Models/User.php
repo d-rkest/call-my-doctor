@@ -2,18 +2,21 @@
 
     class User {
         private $conn;
-        private $table = 'users';
+        private $table = 'user';
 
-        public $id;
         public $gender;
         public $password;
-
         public $user_id;
         public $fullname;
         public $phone;
         public $address;
         public $date_of_birth;
         public $email;
+        public $clinic_map;
+        public $qualification;
+        public $specialization;
+        public $status;
+        public $is_admin;
         
         public function __construct($db) {
             $this->conn = $db;
@@ -22,25 +25,29 @@
         #Doctors Registration
         public function register_doctor() {
 
-            $query = "INSERT INTO user SET email = :email, password = :password, user_id = :user_id";
+            $this->is_admin = 2;
+
+            $query = "INSERT INTO user SET email = :email, password = :password, user_id = :user_id, is_admin = :is_admin";
             $stmt = $this->conn->prepare($query);
                 $this->email = htmlspecialchars(strip_tags($this->email));
                 $this->user_id = htmlspecialchars(strip_tags($this->user_id));
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
             $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            $stmt->bindParam(':is_admin', $this->is_admin, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
 
-                $sql = "INSERT INTO doctors_info SET fullname = :fullname, gender = :gender, phone = :phone, qualification = :qualification, address = :address, clinic_map = :clinic_map, user_id = :user_id";
+                $sql = "INSERT INTO doctors_info SET fullname = :fullname, gender = :gender, phone = :phone, qualification = :qualification, clinic_map = :clinic_map, address = :address, specialty = :specialization, user_id = :user_id";
                 $stmt = $this->conn->prepare($sql);
                 
                 $stmt->bindParam(':fullname', $this->fullname, PDO::PARAM_STR);
                 $stmt->bindParam(':gender', $this->gender, PDO::PARAM_STR);
                 $stmt->bindParam(':phone', $this->phone, PDO::PARAM_STR);
                 $stmt->bindParam(':qualification', $this->qualification, PDO::PARAM_STR);
-                $stmt->bindParam(':address', $this->address, PDO::PARAM_STR);
                 $stmt->bindParam(':clinic_map', $this->clinic_map, PDO::PARAM_STR);
+                $stmt->bindParam(':address', $this->address, PDO::PARAM_STR);
+                $stmt->bindParam(':specialization', $this->specialization, PDO::PARAM_STR);
                 $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
                 $stmt->execute();
                 
@@ -93,12 +100,35 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if(password_verify($this->password, $row['password'])) {
-                $this->id = $row['id'];
+                $this->user_id = $row['user_id'];
                 $this->email = $row['email'];
                 return true;
             }
 
             return false;
+        }
+    
+        #Fetch admin profile
+        public function admin_profile($user_id) {
+
+            $this->user_id = $user_id;
+        
+            $query = "SELECT * FROM user WHERE user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    
+        #Fetch settings
+        public function fetch_settings() {
+        
+            $query = "SELECT * FROM settings";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         
         #Change user password
@@ -130,15 +160,64 @@
             return false;
         }
         
-        #Delete User Account
-        // public function deleteUser() {
-        //     $query = "DELETE FROM user, patient_info WHERE user_id = :user_id";
-        //     $stmt = $this->conn->prepare($query);
-        //     $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
-        //     $stmt->execute();
-        //     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        //     return;
-        // }
+        #Delete Patient Account
+        public function delete_patient($user_id) {
+            $this->user_id=$user_id;
+
+            $queryPatientInfo = "DELETE FROM patient_info WHERE user_id = :user_id";
+            $stmtPatient = $this->conn->prepare($queryPatientInfo);
+            $stmtPatient->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            
+
+            if ($stmtPatient->execute()) {
+
+                $queryUser = "DELETE FROM user WHERE user_id = :user_id";
+                $stmtUser = $this->conn->prepare($queryUser);
+                $stmtUser->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+                $stmtUser->execute();
+
+                return true;
+            }
+
+            printf("Error: %s. \n", $stmt->error);
+            return false;
+        }
+        
+        #Delete Doctor Account
+        public function delete_doctor($user_id) {
+            $this->user_id=$user_id;
+
+            $queryPatientInfo = "DELETE FROM doctors_info WHERE user_id = :user_id";
+            $stmtPatient = $this->conn->prepare($queryPatientInfo);
+            $stmtPatient->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            
+
+            if ($stmtPatient->execute()) {
+
+                $queryUser = "DELETE FROM user WHERE user_id = :user_id";
+                $stmtUser = $this->conn->prepare($queryUser);
+                $stmtUser->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+                $stmtUser->execute();
+
+                return true;
+            }
+
+            printf("Error: %s. \n", $stmt->error);
+            return false;
+        }
+        
+        #Activate Doctor Account
+        public function activate_doctor($user_id) {
+            $this->user_id=$user_id;
+
+                $queryUser = "UPDATE user SET status = :status WHERE user_id = :user_id";
+                $stmtUser = $this->conn->prepare($queryUser);
+                $stmtUser->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+                $stmtUser->bindParam(':status', $this->status, PDO::PARAM_STR);
+                $stmtUser->execute();
+
+                return true;
+        }
         
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";

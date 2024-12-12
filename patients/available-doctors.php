@@ -16,7 +16,7 @@
         
         <div class="row">
           
-            <!-- Top Selling -->
+            <!-- Available doctors -->
             <div class="col-12">
               <div class="card top-selling overflow-auto">
 
@@ -34,10 +34,20 @@
                       </tr>
                     </thead>
                     <tbody>
+                      <?php if (empty($user->available_doctors($_SESSION['user_id']))) { ?>
+                        <tr>
+                          <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
+                        </tr>
+                      <?php
+                        }  else { 
+                          $doctors = $user->available_doctors($_SESSION['user_id']);
+                          $num=1;
+                          foreach ($doctors as $doctor) {     
+                      ?>
                       <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Brown</a></td>
-                        <td>Optimologist</td>
+                        <th scope="row"><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
+                        <td><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>" class="text-primary fw-bold">Dr. <?=$doctor['fullname'];?></a></td>
+                        <td><?=$doctor['specialty'];?></td>
                         <td class="fw-bold">
                           <i class="bi bi-star-fill"style="color:gold;"></i>
                           <i class="bi bi-star-fill"style="color:gold;"></i>
@@ -46,36 +56,14 @@
                           <i class="bi bi-star-half"style="color:gold;"></i>
                         </td>
                         <td>
-                          <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i></a></span>
+                            <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i> | </a></span>
+                            <span><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope h2 text-primary"></i></a></span>
                         </td>
                       </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Morphie</a></td>
-                        <td>Cardiologist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-half"style="color:gold;"></i>
-                        </td>
-                        <td>
-                        <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i></a></span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Dr. Kyle</a></td>
-                        <td>Gynacologist</td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                        </td>
-                        <td>
-                        <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i></a></span>
-                        </td>
-                      </tr>
+                      <?php
+                          }
+                        }
+                      ?>
                       
                     </tbody>
                   </table>
@@ -83,7 +71,7 @@
                 </div>
 
               </div>
-            </div><!-- End Top Selling -->
+            </div><!-- End available doctors -->
             
         </div>
 

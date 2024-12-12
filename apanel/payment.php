@@ -26,7 +26,7 @@
 
                 <div class="card-body pt-3">
 
-                  <table class="table table-borderless datatable">
+                <table class="table table-borderless datatable">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -49,12 +49,28 @@
                           foreach ($payments as $payment) {     
                       ?>
                       <tr>
-                        <th scope="row"><a href="#"><?= $num; ?></a></th>
+                        <th scope="row"><a href="#"><?=$num++;?></a></th>
                         <td><?= $payment['user_id'];?></td>
-                        <td>$20</td>
-                        <td><span class="badge bg-success">successful</span></td>
+                        <td><?= $payment['service_id'];?></td>
+                        <td>₦ <?= $payment['amount'];?></td>
                         <td>
-                          <a href="../uploads/doc.pdf" target="_blank"><i class="bi bi-eye h5 text-success"></i></a>
+                          <?php
+                            switch ($payment['status']) {
+                              case '0':
+                                echo '<span class="btn btn-sm btn-warning">pending</span>';
+                                break;
+                              
+                              default:
+                              echo '<span class="btn btn-sm btn-danger">approved</span>';
+                                break;
+                            }
+                          ?>  
+                        </td>
+                        <td>
+                          <form action="Controllers/paymentCtrl.php" method="post">
+                            <!-- <a href="Controllers/paymentCtrl.php?payment_id=<?=$payment['id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a> -->
+                            <a href="#" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
+                          </form>
                         </td>
                       </tr>
                       <?php

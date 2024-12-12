@@ -18,38 +18,54 @@
 
           <div class="card">
             <div class="card-body">
-              
-              <h5 class="card-title">New Appointment</h5>
-              <!-- <p>This is an examle page with no contrnt. You can use it as a starter for your custom pages.</p> -->
 
-              <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+              <?php
+                if (isset($_GET['uid'])) {
+                  $doc = $user->get_appointment_doc($_GET['uid']);
+                }
+              ?>
+              
+              <h5 class="card-title">Make Appointment With Dr. <?=$doc['fullname'];?></h5>
+
+              <form action="../Controllers/appointmentCtrl.php" method="post">
                 <div class="row">
                   <div class="col-md-4 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Dr. Morphie" required="" disabled>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="<?= $doc['fullname'];?>" required="" disabled>
                   </div>
                   <div class="col-md-4 form-group mt-3 mt-md-0">
-                    <select name="doctor" id="doctor" class="form-select" required="">
-                      <option value="">Select Service</option>
-                      <option value="Doctor 1">service 1</option>
-                      <option value="Doctor 2">service 2</option>
-                      <option value="Doctor 3">service 3</option>
-                    </select>
+                    <input type="date" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" required="">
                   </div>
                   <div class="col-md-4 form-group mt-3 mt-md-0">
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Remark" required="">
+                    <input type="time" name="time" class="form-control datepicker" id="time" placeholder="Appointment Time" required="">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4 form-group mt-3">
-                    <input type="date" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" required="">
+                  
+                    <select name="service" id="doctor" class="form-select" required="">
+                      <?php 
+                        $services = $user->get_services();
+                        if (empty($user->get_services())) { ?>
+                          <option value="" disabled>Select service...</option>
+                      <?php
+                        }  else { 
+                          $services = $user->get_services();
+                          $num=1;
+                          foreach ($services as $service) {     
+                      ?>
+                        <option value="<?=$service['service']?>"><?=$service['service']?></option>
+                      <?php } } ?>
+                    </select>
                   </div>
-                  <div class="col-md-4 form-group mt-3">
-                    <input type="time" name="date" class="form-control datepicker" id="date" placeholder="Appointment Time" required="">
+                  <div class="col-md-8 form-group mt-3">
+                    <input type="text" class="form-control" name="zoom_link" id="remark" placeholder="Zoom Link" required="">
                   </div>
                 </div>
 
-                <div class="mt-3">
-                  <button class="btn btn-primary" type="submit">Book an Appointment</button>
+                <div class="mt-3 text-center">
+                  <input type="hidden" name="patient_id" value="<?=$_SESSION["user_id"];?>">
+                  <input type="hidden" name="doctor_id" value="<?=$_GET["uid"];?>">
+                  <button type="submit" class="btn btn-primary" name="book_appointment">Book an Appointment</button>
                 </div>
               </form>
               
