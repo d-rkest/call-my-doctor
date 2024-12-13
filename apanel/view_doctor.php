@@ -1,7 +1,7 @@
 <?php
   require_once 'inc/header.php';
   require_once 'Controllers/doctorCtrl.php';
-  $doctor = $user->view_doctor_profile($_GET['doctor_id']);
+  $doctor = $user->view_doctor_profile($_GET['user_id']);
 ?>
     <div class="pagetitle">
       <h1>Profile</h1>
@@ -61,17 +61,19 @@
               
               <div class="border-top d-block w-100"></div><br>
               <form action="Controllers/userCtrl.php" method="post">
-                <?php if ($doctor['status'] == 'active') { ?>
-                  <input type="hidden" name="suspend" value="pending">
-                  <input type="hidden" name="doctor_id" value="<?=$doctor['user_id'];?>">
-                  <h3 class="fw-bold">Account status:  <span class="badge bg-success"><?=$doctor['status'];?></span></h3>
+                <?php if ($doctor['status'] == 1) { ?>
+                  <input type="hidden" name="url" value="view_doctor.php?user_id=<?=$doctor['user_id'];?>">
+                  <input type="hidden" name="status" value="0">
+                  <input type="hidden" name="user_id" value="<?=$doctor['user_id'];?>">
+                  <h3 class="fw-bold">Account status:  <span class="badge bg-success">active</span></h3>
                   <div class="col text-center">
-                    <button class="btn btn-primary d-inline-flex" name="suspend_user" type="submit">Suspend</button>
+                    <button class="btn btn-danger d-inline-flex" name="suspend_user" type="submit">Suspend</button>
                   </div>
                 <?php } else { ?>
-                  <input type="hidden" name="activate" value="active">
-                  <input type="hidden" name="doctor_id" value="<?=$doctor['user_id'];?>">
-                  <h3 class="fw-bold">Account status:  <span class="badge bg-warning"><?=$doctor['status'];?></span></h3>
+                  <input type="hidden" name="url" value="view_doctor.php?user_id=<?=$doctor['user_id'];?>">
+                  <input type="hidden" name="status" value="1">
+                  <input type="hidden" name="user_id" value="<?=$doctor['user_id'];?>">
+                  <h3 class="fw-bold">Account status:  <span class="badge bg-warning">pending</span></h3>
                   <div class="col text-center">
                     <button class="btn btn-success" name="activate_user" type="submit">Activate</button>
                   </div>
@@ -91,11 +93,11 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Profile details</button>
                 </li>
 
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Reset Password</button>
                 </li>
 
               </ul>
@@ -109,41 +111,38 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?= $doctor['fullname']; ?>" disabled>
+                        <input name="fullName" type="text" class="form-control" id="fullName" placeholder="<?= $doctor['fullname']; ?>" disabled>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">Clinic Map</label>
                       <div class="col-md-8 col-lg-9">
-                        <textarea name="about" class="form-control" id="about" style="height: 100px"><?= $doctor['clinic_map']; ?></textarea>
+                        <textarea name="about" class="form-control" id="about" style="height: 100px" disabled><?= $doctor['clinic_map']; ?></textarea>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="<?= $doctor['address']; ?>">
+                        <input name="address" type="text" class="form-control" id="Address" placeholder="<?= $doctor['address']; ?>" disabled>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="phone" type="text" class="form-control" id="Phone" value="<?= $doctor['phone']; ?>">
+                        <input name="phone" type="text" class="form-control" id="Phone" placeholder="<?= $doctor['phone']; ?>" disabled>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="<?= $doctor['email']; ?>">
+                        <input name="email" type="email" class="form-control" id="Email" placeholder="<?= $doctor['email']; ?>" disabled>
                       </div>
                     </div>
 
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
                   </form><!-- End Profile Edit Form -->
 
                 </div>
@@ -157,28 +156,14 @@
                   <form>
 
                     <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <label for="resetLink" class="col-md-4 col-lg-3 col-form-label">Reset Link</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                        <input name="password" type="password" class="form-control" id="resetLink">
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
+                      <button type="submit" class="btn btn-primary">Generate</button>
                     </div>
                   </form><!-- End Change Password Form -->
 

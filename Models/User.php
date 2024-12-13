@@ -71,10 +71,10 @@
 
             if ($stmt->execute()) {
 
-                $sql = "INSERT INTO patient_info SET fullname = :fullname, gender = :gender, phone = :phone, date_of_birth = :date_of_birth, address = :address, user_id = :user_id";
+                $sql = "INSERT INTO patient_info SET name = :name, gender = :gender, phone = :phone, date_of_birth = :date_of_birth, address = :address, user_id = :user_id";
                 $stmt = $this->conn->prepare($sql);
                 
-                $stmt->bindParam(':fullname', $this->fullname, PDO::PARAM_STR);
+                $stmt->bindParam(':name', $this->fullname, PDO::PARAM_STR);
                 $stmt->bindParam(':gender', $this->gender, PDO::PARAM_STR);
                 $stmt->bindParam(':phone', $this->phone, PDO::PARAM_STR);
                 $stmt->bindParam(':date_of_birth', $this->date_of_birth, PDO::PARAM_STR);

@@ -45,7 +45,6 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";
             $stmt = $this->conn->prepare($query);

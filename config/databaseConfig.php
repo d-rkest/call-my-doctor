@@ -2,9 +2,9 @@
 
 class Database {
     private $host       =   "localhost";
-    private $dbname     =   "callmydoctor_db";
-    private $username   =   "root";
-    private $password   =   "";
+    private $dbname     =   "callmydo_db";
+    private $username   =   "callmydo_admin";
+    private $password   =   "QaJw8{iH5bS8";
 
     public $conn;
 

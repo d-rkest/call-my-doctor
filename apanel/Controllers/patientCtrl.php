@@ -14,6 +14,6 @@
     }
 
     #view patient profile
-    if(isset($_GET['patient_id'])){
-        return $user->view_patient_profile($_GET['patient_id']);
+    if(isset($_GET['user_id'])){
+        return $user->view_patient_profile($_GET['user_id']);
     }

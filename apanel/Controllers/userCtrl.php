@@ -104,22 +104,23 @@
 
     #Reset password
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
-        
-        $user->old_password = $_POST['old_password'];
 
-        if ($user->new_password = $_POST['new_password'] === $$user->confirm_password = $_POST['confirm_password']) {
-            
-            if ($user->change_password($_SESSION['user_id'])) { // TODO : Creat session for user_id
-                $_SESSION['message'] = 'Password reset successful';
-                header('location: ./settings.php');
+        if ($_POST["confirm_password"] === $_POST["new_password"]) {
+
+            $response = $user->change_password($_SESSION['user_id'], $_POST["old_password"], $_POST["new_password"]);
+
+            if ($response['status'] == true) {
+                $_SESSION["message"] = $response['message'];
+                header('Location: ../settings.php');
             } else {
-                $_SESSION['error'] = 'Error, please try again';
-                header('location: ../change-password.php');
+                $_SESSION['warning']=$response['message'];
+                header('Location: ../settings.php');
             }
+                
+
         } else {
-            
-            $_SESSION['error'] = 'New password does not match';
-            header('location: ../change-password.php');
+            $_SESSION["warning"] = "mismatch password";
+            header('Location: ../settings.php');
         }
     }
 
@@ -150,27 +151,61 @@
     #Activate doctor account
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["activate_user"])) {
 
-        $user->status=$_POST["activate"];
-        $user_id=$_POST["doctor_id"];
+        $url=$_POST["url"];
+        $user_id=$_POST["user_id"];$status=$_POST["status"];
+        $response = $user->activate_user($user_id, $status);
 
-        if ($user->activate_doctor($_POST['doctor_id'])) {
-            $_SESSION['message'] = 'Doctor account activated';
-            header("location: ../view_doctor.php?doctor_id=$user_id");
-        } else {            
-            $_SESSION['error'] = 'unable to activate';
-            header("location: ../view_doctor.php?doctor_id=$user_id");
+        if ($response['status'] == true) {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        } else {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
         }
+
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["suspend_user"])){
 
-        $user->status=$_POST["suspend"];
-        $user_id=$_POST["doctor_id"];
-        
-        if ($user->activate_doctor($_POST['doctor_id'])) {
-            $_SESSION['message'] = 'Doctor account suspended';
-            header("location: ../view_doctor.php?doctor_id=$user_id");
-        } else {            
-            $_SESSION['error'] = 'unable to suspend';
-            header("location: ../view_doctor.php?doctor_id=$user_id");
+        $url=$_POST["url"];
+        $user_id=$_POST["user_id"];$status=$_POST["status"];
+        $response = $user->activate_user($user_id, $status);
+
+        if ($response['status'] == true) {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        } else {
+            
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        }
+    }
+
+    #Admin settings
+    if (isset($_POST["update_settings"])){
+
+        $url = 'settings.php';
+        $user->brand = $_POST["brand"];
+        $user->phone = $_POST["phone"];
+        $user->email = $_POST["email"];
+        $user->about = $_POST["about"];
+        $response = $user->update_settings();
+
+        if ($response['status'] == true) {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        } else {
+            
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
         }
     }
 

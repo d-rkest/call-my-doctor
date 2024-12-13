@@ -33,12 +33,12 @@
                 <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile settings Form -->
-                  <form>
+                  <form method="post" action="Controllers/userCtrl.php">
 
                     <div class="row mb-3">
                       <label for="Job" class="col-md-4 col-lg-3 col-form-label">App Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="job" type="text" class="form-control" id="Job" value="<?=$setting['brand'];?>">
+                        <input name="brand" type="text" class="form-control" id="Job" value="<?=$setting['brand'];?>">
                       </div>
                     </div>
 
@@ -46,13 +46,6 @@
                       <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
                       <div class="col-md-8 col-lg-9">
                         <textarea name="about" class="form-control" id="about" style="height: 100px"><?=$setting['about'];?></textarea>
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="address" type="text" class="form-control" id="Address" value="Lagos">
                       </div>
                     </div>
 
@@ -71,7 +64,7 @@
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                      <button type="submit" name="update_settings" class="btn btn-primary">Save Changes</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
 

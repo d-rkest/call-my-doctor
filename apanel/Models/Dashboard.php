@@ -35,7 +35,10 @@
         #Fetch all appointment
         public function fetch_appointment() {
         
-            $query = "SELECT * FROM appointments";
+            $query = "SELECT a.*, d.*, p.* FROM appointments a
+            INNER JOIN doctors_info d ON a.doctor_id = d.user_id 
+            INNER JOIN patient_info p ON a.patient_id = p.user_id
+            ORDER BY a.created_at DESC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
     

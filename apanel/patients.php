@@ -62,6 +62,7 @@
                             <select id="inputState" name="gender" class="form-select" required>
                               <option selected disabled>Gender...</option>
                               <option value="male">Male</option>
+                              <option value="female">Female</option>
                             </select>
                             <div class="invalid-feedback">Please, select gender!</div>
                           </div>
@@ -116,7 +117,7 @@
                     <tr>
                       <th scope="row"><a href="#"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
                       <td>
-                        <b>Name:</b> <?= $patient['fullname'];?> <br>
+                        <b>Name:</b> <?= $patient['name'];?> <br>
                         <b>Email:</b> <?= $patient['email'];?> <br>
                         <b>Tel:</b> <?= $patient['phone'];?>
                       </td>
@@ -124,12 +125,8 @@
                       <td>
                         <?php
                           switch ($patient['status']) {
-                            case 'active':
+                            case 1:
                               echo '<span class="badge bg-success">active</span>';
-                              break;
-
-                            case 'inactive':
-                              echo '<span class="badge bg-danger">inactive</span>';
                               break;
                             
                             default:
@@ -148,7 +145,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                Are you sure you want to delete <?=$patient['fullname'];?>
+                                Are you sure you want to delete <?=$patient['name'];?>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -157,7 +154,7 @@
                             </div>
                           </div>
                         </div>
-                        <a href="view_patient.php?patient_id=<?=$patient['user_id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
+                        <a href="view_patient.php?user_id=<?=$patient['user_id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
                         <button type="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#<?=$patient["user_id"];?>"><i class="bi bi-trash"></i>delete</button>
                       </td>
                     </tr>

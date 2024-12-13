@@ -17,6 +17,9 @@
         public $specialization;
         public $status;
         public $is_admin;
+        public $brand;
+        public $about;
+        public $url;
         
         public function __construct($db) {
             $this->conn = $db;
@@ -71,10 +74,10 @@
 
             if ($stmt->execute()) {
 
-                $sql = "INSERT INTO patient_info SET fullname = :fullname, gender = :gender, phone = :phone, date_of_birth = :date_of_birth, address = :address, user_id = :user_id";
+                $sql = "INSERT INTO patient_info SET name = :name, gender = :gender, phone = :phone, date_of_birth = :date_of_birth, address = :address, user_id = :user_id";
                 $stmt = $this->conn->prepare($sql);
                 
-                $stmt->bindParam(':fullname', $this->fullname, PDO::PARAM_STR);
+                $stmt->bindParam(':name', $this->fullname, PDO::PARAM_STR);
                 $stmt->bindParam(':gender', $this->gender, PDO::PARAM_STR);
                 $stmt->bindParam(':phone', $this->phone, PDO::PARAM_STR);
                 $stmt->bindParam(':date_of_birth', $this->date_of_birth, PDO::PARAM_STR);
@@ -132,32 +135,47 @@
         }
         
         #Change user password
-        public function change_password($user_id) {
+        public function change_password($user_id, $current_password, $new_password) {
             
             $this->user_id = $user_id;
+            $this->current_password = $current_password;
+            $this->new_password = $new_password;
+
             
-            $query = "SELECT user_id, password FROM user WHERE user_id = :user_id";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
-            $stmt->execute();
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if(password_verify($this->old_password, $row['password'])) {
-
-                $this->password = password_hash($this->new_password, PASSWORD_DEFAULT);
-
-                $query = "UPDATE user SET password = :password WHERE user_id = :user_id";
-                $stmt = $this->conn->prepare($query);
-                $stmt->bindParam(':password', $this->password, PDO::PARAM_STR);
-                $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
-    
-                if ($stmt->execute()) {
-                    return true;
-                }
+            // Validate inputs
+            if (empty($user_id) || empty($current_password) || empty($new_password)) {
+                return ["status" => false, "message" => "All fields are required."];
             }
 
-            return false;
+            // Check if the user exists and the current password matches
+            $query = "SELECT password FROM user WHERE user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":user_id", $this->user_id, PDO::PARAM_STR);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($user < 0) {
+                return ["status" => false, "message" => "User not found."];
+            }
+
+            if (!password_verify($this->current_password, $user['password'])) {
+                return ["status" => false, "message" => "Current password is incorrect."];
+            }
+
+            // Hash the new password
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+    
+            // Update the password in the database
+            $updateQuery = "UPDATE user SET password = :password WHERE user_id = :user_id";
+            $updateStmt = $this->conn->prepare($updateQuery);
+            $updateStmt->bindParam(":password", $hashed_password, PDO::PARAM_STR);
+            $updateStmt->bindParam(":user_id", $this->user_id, PDO::PARAM_STR);
+
+            if ($updateStmt->execute()) {
+                return ["status" => true, "message" => "Password changed successfully."];
+            } else {
+                return ["status" => false, "message" => "Error updating password."];
+            }
         }
         
         #Delete Patient Account
@@ -207,16 +225,38 @@
         }
         
         #Activate Doctor Account
-        public function activate_doctor($user_id) {
-            $this->user_id=$user_id;
+        public function activate_user($user_id, $status) {
+            $this->user_id = $user_id;
+            $this->status = $status;
 
-                $queryUser = "UPDATE user SET status = :status WHERE user_id = :user_id";
-                $stmtUser = $this->conn->prepare($queryUser);
-                $stmtUser->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
-                $stmtUser->bindParam(':status', $this->status, PDO::PARAM_STR);
-                $stmtUser->execute();
+                $query = "UPDATE user SET status = :status WHERE user_id = :user_id";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+                $stmt->bindParam(':status', $this->status, PDO::PARAM_STR);
 
-                return true;
+                if ($stmt->execute()) {
+                    return ["status" => true, "message" => "Account status updated."];
+                } else {
+                    return ["status" => false, "message" => "Unable to update status"];
+                }
+        }
+        
+        #Change user password
+        public function update_settings() {
+
+            // Update the settins in the database
+            $query = "UPDATE settings SET brand = :brand, about = :about, email = :email, phone = :phone";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":brand", $this->brand, PDO::PARAM_STR);
+            $stmt->bindParam(":about", $this->about, PDO::PARAM_STR);
+            $stmt->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $stmt->bindParam(":phone", $this->phone, PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                return ["status" => true, "message" => "Settings updated successfully."];
+            } else {
+                return ["status" => false, "message" => "Error updating settings."];
+            }
         }
         
         public function checkUserExists() {

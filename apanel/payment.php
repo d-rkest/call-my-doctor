@@ -50,7 +50,7 @@
                       ?>
                       <tr>
                         <th scope="row"><a href="#"><?=$num++;?></a></th>
-                        <td><?= $payment['user_id'];?></td>
+                        <td><?= $payment['name'];?></td>
                         <td><?= $payment['service_id'];?></td>
                         <td>₦ <?= $payment['amount'];?></td>
                         <td>

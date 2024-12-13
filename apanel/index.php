@@ -143,9 +143,9 @@
                           foreach ($appointments as $appointment) {     
                       ?>
                       <tr>
-                        <th scope="row"><a href="#"><?= $num; ?></a></th>
-                        <td>Dr. <?= $appointment['doctor_id'];?></td>
-                        <td><?= $appointment['patient_id'];?></td>
+                        <th scope="row"><a href="#"><?= $num++; ?></a></th>
+                        <td>Dr. <?= $appointment['fullname'];?></td>
+                        <td><?= $appointment['name'];?></td>
                         <td><a href="#" class="text-primary"><?= $appointment['service'];?></a></td>
                         <td><?= $appointment['date'];?></td>
                         <td><?= $appointment['time'];?></td>

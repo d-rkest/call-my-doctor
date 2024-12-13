@@ -93,6 +93,7 @@
                     <div class="col-12">
                       <!-- <button class="btn btn-primary w-100" type="submit">Login</button> -->
                       <input type="submit" name="login" class="btn btn-primary w-100" value="Login">
+                      <a href="../" class="w-100 btn btn-link">Go back</a>
                     </div>
                   </form>
 

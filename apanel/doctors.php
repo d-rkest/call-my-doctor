@@ -147,12 +147,8 @@
                       <td>
                         <?php
                           switch ($doctor['status']) {
-                            case 'active':
+                            case 1:
                               echo '<span class="badge bg-success">active</span>';
-                              break;
-
-                            case 'inactive':
-                              echo '<span class="badge bg-danger">inactive</span>';
                               break;
                             
                             default:
@@ -181,7 +177,7 @@
                             </div>
                           </div>
                         </div>
-                        <a href="view_doctor.php?doctor_id=<?=$doctor['user_id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
+                        <a href="view_doctor.php?user_id=<?=$doctor['user_id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
                         <button type="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#<?=$doctor["user_id"];?>"><i class="bi bi-trash"></i>delete</button>
                       </td>
                     </tr>

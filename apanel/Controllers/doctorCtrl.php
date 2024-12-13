@@ -14,6 +14,6 @@
     }
 
     #view doctor profile
-    if(isset($_GET['doctor_id'])){
-        return $user->view_doctor_profile($_GET['doctor_id']);
+    if(isset($_GET['user_id'])){
+        return $user->view_doctor_profile($_GET['user_id']);
     }
