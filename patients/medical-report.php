@@ -21,21 +21,22 @@
               <h5 class="card-title">Submit Medical Report</h5>
               <!-- <p>Please upload a copy of your medical report</p> -->
 
-              <form action="" method="post" role="form" class="php-email-form">
+              <form action="../Controllers/patientCtrl.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-4 form-group mt-3">
-                    <select name="department" id="department" class="form-select" required="">
+                    <select name="report_type" id="" class="form-select" required>
                       <option value="">Select type</option>
-                      <option value="pain 1">Bloog group</option>
-                      <option value="pain 2">Genotype</option>
-                      <option value="pain 3">others</option>
+                      <option value="blood-group">Bloog group</option>
+                      <option value="genetype">Genotype</option>
+                      <option value="others">others</option>
                     </select>
                   </div>
                   <div class="col-md-4 form-group mt-3">
-                    <input type="file" name="medical-report" id="">
+                    <input type="file" name="medical_report" required>
                   </div>
                   <div class=" col-md-4 form-group mt-3">
-                    <button class="btn btn-primary" type="submit">Upload</button>
+                    <input type="hidden" name="user_id" value="<?=$_SESSION['user_id'];?>">
+                    <button name="upload_report" class="btn btn-primary" type="submit">Upload</button>
                   </div>
                 </div>
               </form>
@@ -47,7 +48,7 @@
             <div class="card recent-sales overflow-auto">
 
               <div class="card-body">
-                <h5 class="card-title">Feedbacks</h5>
+                <h5 class="card-title">Feedback</h5>
 
                 <table class="table table-borderless datatable">
                   <thead>
@@ -61,7 +62,7 @@
                   <tbody>
                     <?php if (empty($user->fetch_feedback($_SESSION['user_id']))) { ?>
                       <tr>
-                        <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
+                        <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary bg-light">No feedback yet</th>
                       </tr>
                     <?php
                       }  else { 

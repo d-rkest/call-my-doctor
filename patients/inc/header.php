@@ -175,7 +175,7 @@
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="contact.php">
+        <a class="nav-link collapsed" href="locate-medical-center.php">
           <i class="bi bi-geo-alt"></i>
           <span>Locate Medical Centre</span>
         </a>
@@ -243,7 +243,7 @@
             '.$_SESSION['warning'].'
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>';
-            unset($_SESSION['error']);
+            unset($_SESSION['warning']);
         }
       ?>
     </span>

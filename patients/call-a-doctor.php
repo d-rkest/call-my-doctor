@@ -111,7 +111,7 @@
                         <?php 
                           $spcialties = $user->get_specialization();
                           if (empty($user->get_specialization())) { ?>
-                            <option value="" disabled>Select...</option>
+                            <option value="" disabled>Please select...</option>
                         <?php
                           }  else { 
                             $specialties = $user->get_specialization();
@@ -174,7 +174,43 @@
                     <tr>
                       <th scope="row"><a href="reviews.php?doctor_id=<?=$doctor["user_id"]?>"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
                       <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"]?>" class="text-primary fw-bold">Dr. <?= $doctor["fullname"]; ?></a></td>
-                      <td><?= $doctor["specialty"]; ?></td>
+                      <td>
+                        <?php
+                          switch ($doctor['specialty']) {
+                            case '1':
+                              echo 'General Practitional';
+                              break;
+
+                            case '2':
+                              echo 'Optimologist';
+                              break;
+
+                            case '3':
+                              echo 'Dermatologist';
+                              break;
+
+                            case '4':
+                              echo 'Pediatrician';
+                              break;
+
+                            case '5':
+                              echo 'Nutritionist';
+                              break;
+
+                            case '6':
+                              echo 'Gynacologist';
+                              break;
+
+                            case '7':
+                              echo 'Pharmacist';
+                              break;
+                            
+                            default:
+                            echo 'Update code base';
+                              break;
+                          }
+                        ?>                      
+                      </td>
                       <td><?= $doctor["no_of_patient"]; ?></td>
                       <td><?= $doctor['ratings']; ?></td>
                       <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"];?>" class="text-primary fw-bold"><?= $doctor["reviews"]; ?></a></td>

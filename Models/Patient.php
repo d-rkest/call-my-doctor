@@ -7,6 +7,8 @@
         public $user_id;
         public $doctors_id;
         public $profile;
+        public $student_folder;
+        public $file_location;
         
         public function __construct($db) {
             $this->conn = $db;
@@ -142,6 +144,63 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
+        #Upload Medical report
+        public function upload_report($user_id) {
+            $this->user_id=$user_id;
+            
+            // Set the upload directory
+            $patient_folder = $this->user_id;
+            $upload_dir = '../uploads/'.$patient_folder.'/';
+
+            // Check if the directory exists, create it if not
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+
+            // Set the maximum file size
+            $max_file_size = 1024 * 1024 * 5; // 5MB
+            $file_error = $this->file_error;
+
+            // Check if the file was uploaded
+            if ($file_error == 0) {
+                // Get the file details
+                $file_name  =   $this->file_name;
+                $file_size  =   $this->file_size;
+                $file_tmp   =   $this->file_tmp;
+
+                // Check if the file size is within the limit
+                if ($file_size <= $max_file_size) {
+                    // Move the file to the upload directory
+                    if (move_uploaded_file($file_tmp, $upload_dir . $file_name)) {
+
+                        $query = "INSERT INTO medical_reports SET patient_id = :patient_id, report_type = :report_type, file_name = :file_name";
+                        $stmt = $this->conn->prepare($query);
+                            $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+                            $this->report_type = htmlspecialchars(strip_tags($this->report_type));
+                        $stmt->bindParam(':patient_id', $this->user_id, PDO::PARAM_STR);
+                        $stmt->bindParam(':file_name', $this->file_name, PDO::PARAM_STR);
+                        $stmt->bindParam(':report_type', $this->report_type, PDO::PARAM_STR);
+
+
+                        if ($stmt->execute()) {
+                            return ["status" => true, "message" => "File uploaded successfully!"];
+                        } else {
+                            return ["status" => false, "message" => "Error updating file."];
+                        }
+                    } else {
+                        return ["status" => false, "message" => "Error uploading file."];
+                    }
+                } else {
+                    return ["status" => false, "message" => "File size exceeds the maximum allowed size."];
+                }
+            } else {
+                return ["status" => false, "message" => "Error uploading file."];
+            }
+
+        }
+        
+
+        
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";
             $stmt = $this->conn->prepare($query);

@@ -21,7 +21,7 @@
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
               <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2><?= $profile['fullname']; ?> </h2>
+              <h2><?= $profile['name']; ?> </h2>
               <h3><?= $profile['email']; ?></h3>
             </div>
           </div>
@@ -54,7 +54,7 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?= $profile['fullname']; ?>">
+                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?= $profile['name']; ?>">
                       </div>
                     </div>
 
@@ -94,26 +94,27 @@
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password" type="text" class="form-control" id="currentPassword" value="">
+                        <input name="old_password" type="text" class="form-control" id="currentPassword" value="">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="new-password" type="password" class="form-control" id="newPassword" value="">
+                        <input name="new_password" type="password" class="form-control" id="newPassword" value="">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="retype-password" type="password" class="form-control" id="renewPassword" value="">
+                        <input name="confirm_password" type="password" class="form-control" id="renewPassword" value="">
                       </div>
                     </div>
 
                     <div class="text-center">
                       <input type="hidden" name="user_id" value="<?=$_SESSION['user_id']?>">
+                      <input type="hidden" name="url" value="patients/profile.php">
                       <button type="submit" name="reset_password" class="btn btn-primary">Change Password</button>
                     </div>
                   </form><!-- End Change Password Form -->

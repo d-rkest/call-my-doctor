@@ -241,7 +241,7 @@
                 }
         }
         
-        #Change user password
+        #Change user settngs
         public function update_settings() {
 
             // Update the settins in the database

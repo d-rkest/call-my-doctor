@@ -4,7 +4,7 @@
       <h1>Locate a Medical Center</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item active">Locate medical centre</li>
         </ol>
       </nav>
@@ -22,10 +22,10 @@
               <!-- Pills Tabs -->
               <ul class="nav nav-pills " id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Blood Bank</button>
+                  <button class="nav-link alert-warning active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Blood Bank</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Genaral hospital</button>
+                  <button class="nav-link alert-warning" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Genaral hospital</button>
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Specialist hospital</button>
@@ -37,6 +37,7 @@
                   <button class="nav-link" id="pills-medical-tab" data-bs-toggle="pill" data-bs-target="#pills-medical" type="button" role="tab" aria-controls="pills-medical" aria-selected="false">Medical Laboratory</button>
                 </li>
               </ul>
+
               <div class="tab-content pt-2" id="myTabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="home-tab">
                 <h5 class="card-title">Blood bank nearby</h5>
@@ -75,6 +76,7 @@
                 </div>
 
               </div>
+
           </div>
 
       </div>

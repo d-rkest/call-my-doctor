@@ -171,25 +171,49 @@
     }
 
     #Reset password
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["reset_password"])) {
-        
-        $user_id = $_POST["user_id"];
-        $user->old_password = $_POST['password'];
-        $user->new_password = $_POST['new-password'];
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['reset_password'])) {
 
-        if ($_POST['new-password'] === $_POST['retype-password']) {
-            
-            if ($user->change_password($user_id)) {
-                $_SESSION['message'] = 'Password reset successful';
-                header('location: ../patients/profile.php');
+        $url=$_POST['url'];
+
+        if ($_POST["confirm_password"] === $_POST["new_password"]) {
+
+            $response = $user->change_password($_SESSION['user_id'], $_POST["old_password"], $_POST["new_password"]);
+
+            if ($response['status'] == true) {
+                $_SESSION["message"] = $response['message'];
+                header("Location: ../$url");
             } else {
-                $_SESSION['warning'] = 'Error, please try again';
-                header('location: ../patients/profile.php');
+                $_SESSION['warning']=$response['message'];
+                header("Location: ../$url");
             }
+                
 
         } else {
-            $_SESSION['error'] = 'New password does not match';
-            header('location: ../patients/profile.php');
+            $_SESSION["warning"] = "mismatch password";
+            header("Location: ../$url");
+        }
+    }
+
+    #Update Patient Info
+    if (isset($_POST["update_profile"])){
+
+        $url         = $_POST['url'];
+        $user->brand = $_POST["brand"];
+        $user->phone = $_POST["phone"];
+        $user->email = $_POST["email"];
+        $user->about = $_POST["about"];
+        $response = $user->update_settings();
+
+        if ($response['status'] == true) {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        } else {
+            
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
         }
     }
 
