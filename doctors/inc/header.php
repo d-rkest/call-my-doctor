@@ -4,7 +4,7 @@
   $profile = $user->user_profile($_SESSION['user_id']);
   $aCount = $user->count_appointment($_SESSION['user_id']);
   $prCount = $user->count_pending_report($_SESSION['user_id']);
-  $rcount = $user->count_report($_SESSION['user_id']);
+  $rCount = $user->count_report($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

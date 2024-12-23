@@ -49,7 +49,7 @@
                       ?>
                       <tr>
                         <th scope="row"><?=$num++;?></th>
-                        <td><?= $report['fullname']; ?></td>
+                        <td><?= $report['name']; ?></td>
                         <td><a href="#" class="text-primary">Pathology Reports</a></td>
                         <td>28-10-2024</td>
                         <td>
@@ -71,7 +71,7 @@
                         </td>
                         <td>
                           <span class=" badge bg-primary p-2">
-                            <a href="analyze-medical-report.php" class="text-light"><i class="bi bi-eye"></i> view</a>
+                            <a href="analyze-medical-report.php?medical_report=<?= $report["patient_id"];?>" class="text-light"><i class="bi bi-eye"></i> view</a>
                           </span>
                         </td>
                       </tr>

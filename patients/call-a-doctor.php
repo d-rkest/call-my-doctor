@@ -66,10 +66,10 @@
                 <h5 class="card-title">WHERE DO YOU FEEL PAIN</h5>
                 <!-- <p>Select your complain form the list below.</p> -->
 
-                <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                <form action="../Controllers/callCtrl.php" method="post" role="form">
                   <div class="row">
                     <div class="col-md-8 form-group mt-3">
-                      <select name="department" id="department" class="form-select" required="">
+                      <select name="department" id="department" class="form-select" required>
                         <option value="" disabled>Select...</option>
                         <?php 
                           $spcialty = $user->get_pain();
@@ -86,7 +86,7 @@
                     </div>
                     <div class=" col-md-4 form-group mt-3">
                       <!-- <button class="btn btn-primary" type="submit">Call Doctor</button> -->
-                      <a href="available-doctors.php" class="btn btn-primary" type="submit"><i class="bi bi-phone-vibrate-fill"></i> Call</a>
+                      <button type="submit" name="call_available_doctor" class="btn btn-primary"><i class="bi bi-phone-vibrate-fill"></i> Call</button>
                     </div>
                   </div>
                 </form>
@@ -153,7 +153,7 @@
                       <th scope="col">Profile</th>
                       <th scope="col">Doctor</th>
                       <th scope="col">Specialization</th>
-                      <th scope="col">No. of patient</th>
+                      <th scope="col">Patient</th>
                       <th scope="col">Ratings</th>
                       <th scope="col">Reviews</th>
                       <th scope="col">Status</th>
@@ -213,7 +213,7 @@
                       </td>
                       <td><?= $doctor["no_of_patient"]; ?></td>
                       <td><?= $doctor['ratings']; ?></td>
-                      <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"];?>" class="text-primary fw-bold"><?= $doctor["reviews"]; ?></a></td>
+                      <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"];?>" class="text-primary fw-bold">(<?= $doctor["reviews"]; ?>) <i class="bi bi-eye"></i></a></td>
                       <td>
                         <?php
                           switch ($doctor['available']) {
@@ -229,8 +229,9 @@
                       </td>
                       <td>
                         <?php if ($doctor['available'] == 1) { ?>
-                          <span><a href="#"><i class="bi bi-phone-vibrate h4 text-success"></i> | </a></span>
-                          <span><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope h4 text-primary"></i></a></span>
+                          <span><a class="px-1" href="#"><i class="bi bi-camera-video-fill text-primary"></i></a></span>
+                          <span><a href="call.php?doctor_id=<?= $doctor["user_id"];?>" class="px-1" href="#"><i class="bi bi-phone-vibrate h3 text-primary"></i></a></span>
+                          <span><a class="px-1" href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope-fill text-primary"></i></a></span>
                         <?php  } else { ?>
                           <span><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope h4 text-primary"></i></a></span>
                         <?php } ?>

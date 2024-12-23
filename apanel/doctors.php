@@ -68,6 +68,9 @@
                               <option value="5">Nutritionist</option>
                               <option value="6">Gynacologist</option>
                               <option value="7">Pharmacist</option>
+                              <option value="8">Urologist</option>
+                              <option value="9">Rheumatologist</option>
+                              <option value="10">Dentist</option>
                             </select>
                             <div class="invalid-feedback">Please, enter your gender!</div>
                           </div>

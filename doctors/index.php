@@ -119,7 +119,7 @@
                   ?>
                   <tr>
                     <th scope="row"><a href="#"><?=$num++?></a></th>
-                    <td><?= $appointment['fullname'] ?></td>
+                    <td><?= $appointment['name'] ?></td>
                     <td><?= $appointment['service'] ?></td>
                     <td><?= $appointment['date'] ?></td>
                     <td><?= $appointment['time'] ?></td>

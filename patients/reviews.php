@@ -41,10 +41,10 @@
                   <i class="bi bi-geo-alt"></i>
                     <span class="text-secondary">{location}</span>
                   </div>
-                  <div class="list-group-item d-flex align-items-center border-0 px-0">
+                  <!-- <div class="list-group-item d-flex align-items-center border-0 px-0">
                     <i class="bi bi-phone"></i>
                     <span class="text-secondary">{phone}</span>
-                  </div>
+                  </div> -->
                   <div class="list-group-item d-flex align-items-center border-0 px-0">
                     <i class="bi bi-clock"></i>
                     <span class="text-secondary">Mon-Fri: 9:00 AM - 5:00 PM</span>

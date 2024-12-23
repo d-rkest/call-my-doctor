@@ -10,6 +10,31 @@
 
     $user_id = $_SESSION['user_id'];
     
+    #Update Patient Info
+    if (isset($_POST["update_profile"])){
+        session_start();
+
+        $url         = $_POST['url'];
+        $user->phone = $_POST["phone"];
+        $user->clinic_map = $_POST["map"];
+        $user->address = $_POST["address"];
+        // $user->email = $_POST["email"];
+        // $user->fullname = $_POST["fullname"];
+        $response = $user->update_profile($_POST["user_id"]);
+
+        if ($response['status'] == true) {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        } else {
+            
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        }
+    }
+    
     #All appointments
     if ($user->fetch_appointment($user_id)) {
         return $user->fetch_appointment($user_id);

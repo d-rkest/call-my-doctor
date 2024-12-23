@@ -44,7 +44,7 @@
                           foreach ($appointments as $appointment) {     
                       ?>
                       <tr>
-                        <th scope="row"><a href="#"><?= $num; ?></a></th>
+                        <th scope="row"><a href="#"><?= $num++; ?></a></th>
                         <td><?= $appointment['fullname'];?></td>
                         <td><a href="#" class="text-primary"><?= $appointment['service'] ?></a></td>
                         <td><?= $appointment['date'] ?></td>

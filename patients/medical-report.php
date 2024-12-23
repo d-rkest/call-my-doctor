@@ -31,10 +31,11 @@
                       <option value="others">others</option>
                     </select>
                   </div>
-                  <div class="col-md-4 form-group mt-3">
-                    <input type="file" name="medical_report" required>
+                  <div class="col-md-4 mt-3">
+                    <!-- <label for="formFile" class="form-label">Medical report</label> -->
+                    <input name="medical_report" class="form-control" type="file" id="formFile">
                   </div>
-                  <div class=" col-md-4 form-group mt-3">
+                  <div class="col-md-4 form-group mt-3">
                     <input type="hidden" name="user_id" value="<?=$_SESSION['user_id'];?>">
                     <button name="upload_report" class="btn btn-primary" type="submit">Upload</button>
                   </div>

@@ -49,12 +49,12 @@
                 <div class="tab-pane fade show active profile-overview pt-3" id="profile-overview">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form method="post" action="../Controllers/patientCtrl.php">
 
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="fullName" type="text" class="form-control" id="fullName" value="<?= $profile['name']; ?>">
+                        <input name="fullname" type="text" class="form-control" id="fullName" value="<?= $profile['name']; ?>">
                       </div>
                     </div>
 
@@ -75,12 +75,14 @@
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="email" class="form-control" id="Email" value="<?= $profile['email']; ?>">
+                        <input type="email" class="form-control" id="Email" value="<?= $profile['email']; ?>" disabled>
                       </div>
                     </div>
 
                     <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                      <input type="hidden" name="url" value="patients/profile.php">
+                      <input type="hidden" name="user_id" value="<?=$profile["user_id"];?>">
+                      <button name="update_profile" type="submit" class="btn btn-primary">Update</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
 

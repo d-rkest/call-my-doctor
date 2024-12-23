@@ -24,7 +24,8 @@
         
             $query = "SELECT d.*, u.*
             FROM doctors_info d
-            LEFT JOIN user u ON d.user_id = u.user_id";
+            LEFT JOIN user u ON d.user_id = u.user_id
+            ORDER BY u.created_at DESC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
     

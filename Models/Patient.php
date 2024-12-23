@@ -9,6 +9,8 @@
         public $profile;
         public $student_folder;
         public $file_location;
+        public $fullname;
+        public $address;
         
         public function __construct($db) {
             $this->conn = $db;
@@ -78,17 +80,7 @@
     
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-    
-        #Fetch pains
-        public function get_pain() {
         
-            $query = "SELECT * FROM pains";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-    
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-    
         #Fetch doctors
         public function doctors() {
         
@@ -123,22 +115,54 @@
             $stmt = $this->conn->query("SELECT count(*) FROM doctors_info WHERE available = 1 ");
             return $stmt->fetchColumn();
         }
-
+        
         #Count medical report
         public function count_report($user_id) {
-    
+            
             $stmt = $this->conn->query("SELECT count(*) FROM medical_reports WHERE patient_id = '$this->user_id' AND status=1");
             return $stmt->fetchColumn();
         }
-
+        
         #fetch appointed doctor
         public function get_appointment_doc($uid) {
-
+            
             $this->user_id = $uid;
         
             $query = "SELECT fullname FROM doctors_info WHERE user_id = :user_id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $this->user_id, PDO::PARAM_STR);
+            $stmt->execute();
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    
+        #Fetch pains
+        public function get_pain() {
+        
+            $query = "SELECT * FROM pains";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    
+        #Fetch self_help_treatment
+        public function self_help_treatment() {
+        
+            $query = "SELECT * FROM self_help";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    
+        #Fetch traetment
+        public function treatment($id) {
+            $this->id=$id;
+        
+            $query = "SELECT * FROM self_help WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
             $stmt->execute();
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -199,7 +223,24 @@
 
         }
         
+        #Update patient profile
+        public function update_patient($user_id) {
+            $this->user_id = $user_id;
 
+            // Update the profile_details in the database
+            $query = "UPDATE patient_info SET name = :fullname, address = :address, phone = :phone WHERE user_id = :user_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(":fullname", $this->fullname, PDO::PARAM_STR);
+            $stmt->bindParam(":address", $this->address, PDO::PARAM_STR);
+            $stmt->bindParam(":phone", $this->phone, PDO::PARAM_STR);
+            $stmt->bindParam(":user_id", $this->user_id, PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                return ["status" => true, "message" => "Profile updated successfully."];
+            } else {
+                return ["status" => false, "message" => "Error updating profile."];
+            }
+        }
         
         public function checkUserExists() {
             $query = "SELECT id FROM user WHERE email = :email";

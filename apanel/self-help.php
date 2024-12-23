@@ -4,11 +4,11 @@
 ?>
 
     <div class="pagetitle">
-      <h1>Pains</h1>
+      <h1>Self Help</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Pains</li>
+          <li class="breadcrumb-item active">Self Help</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -63,41 +63,29 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Region</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Illness</th>
+                        <th scope="col">About</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php if (empty($pain->fetch_pains())) { ?>
+                      <?php if (empty($self_help->fetch_self_help())) { ?>
                         <tr>
                           <th scope="row" style="vertical-align: middle;height:100px" colSpan="5" class="text-center text-secondary">No record found</th>
                         </tr>
                       <?php
                         }  else { 
-                          $pains = $pain->fetch_pains();
+                          $self_helps = $self_help->fetch_self_help();
                           $num=1;
-                          foreach ($pains as $pain) {     
+                          foreach ($self_helps as $self_help) {     
                       ?>
                       <tr>
                         <th scope="row"><a href="#"><?=$num++;?></a></th>
-                        <td><?= $pain['region'];?></td>
-                        <td>
-                          <?php
-                            switch ($pain['specialization_id']) {
-                              case '1':
-                                echo '<p>General practitional</p>';
-                                break;
-                              
-                              default:
-                              echo '<span class="badge bg-danger">not active</span>';
-                                break;
-                            }
-                          ?>                          
-                        </td>
+                        <td><?= $self_help['illness'];?></td>
+                        <td><?=substr($self_help["about"],0,40)?>...</td>
                         <td>
                         <!-- Modal -->
-                        <div class="modal fade" id="<?=$pain["pain_id"];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="<?=$self_help["id"];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -105,17 +93,17 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                Are you sure you want to delete <?=$pain['region'];?>
+                                Are you sure you want to delete <?=$self_help['illness'];?>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <a href="Controllers/painCtrl.php?delete_pain=<?=$pain["id"];?>" class="btn btn-danger">Delete</a>
+                                <a href="Controllers/painCtrl.php?delete_pain=<?=$self_help["id"];?>" class="btn btn-danger">Delete</a>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <a href="edit_service.php?pain_id=<?=$pain['pain_id']?>" class="btn btn-sm btn-primary"><i class="bi bi-pen"></i> edit</a>
-                        <button type="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#<?=$pain["id"];?>"><i class="bi bi-trash"></i>delete</button>
+                        <a href="edit-self-help.php?id=<?=$self_help['id']?>" class="btn btn-sm btn-primary"><i class="bi bi-eye"></i> view</a>
+                        <button type="button" class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#<?=$self_help["id"];?>"><i class="bi bi-trash"></i>delete</button>
                       </td>
                       </tr>
                       <?php

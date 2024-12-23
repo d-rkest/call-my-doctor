@@ -63,18 +63,25 @@
                 
                   <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
                     
-                    <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                    <form action="learn-about-illness.php" method="get" role="form">
                       <div class="row">
                         <div class="col-md-4 form-group mt-3">
-                          <select name="department" id="department" class="form-select" required>
+                          <select name="illness" id="illness" class="form-select" required>
                             <option value="" selected disabled>Select...</option>
-                            <option value="pain 1">Malaria</option>
-                            <option value="pain 2">Fever</option>
-                            <option value="pain 3">Ulcer</option>
+                            <?php 
+                              if (empty($user->self_help_treatment())) { 
+                                
+                              }  else { 
+                                $illnesses = $user->self_help_treatment();
+                                $num=1;
+                                foreach ($illnesses as $illness) {     
+                            ?>
+                              <option value="<?=$illness['id']?>"><?=$illness['illness']?></option>
+                            <?php } } ?>
                           </select>
                         </div>
                         <div class=" col-md-4 form-group mt-3">
-                          <a href="learn-about-illness.php" class="btn btn-primary" type="submit">Learn more</a>
+                          <button name="learn-about-illness" class="btn btn-primary" type="submit">Learn more</button>
                         </div>
                       </div>
                     </form>
@@ -87,18 +94,25 @@
                 
                   <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
                     
-                    <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                    <form action="how-to-treat.php" method="get" role="form">
                       <div class="row">
                         <div class="col-md-4 form-group mt-3">
-                          <select name="department" id="department" class="form-select" required>
-                            <option value="">Select sickness..</option>
-                            <option value="pain 1">Malaria</option>
-                            <option value="pain 2">Fever</option>
-                            <option value="pain 3">Ulcer</option>
+                          <select name="illness" id="illness" class="form-select" required>
+                            <option value="" selected disabled>Select...</option>
+                            <?php 
+                              if (empty($user->self_help_treatment())) { 
+                                
+                              }  else { 
+                                $illnesses = $user->self_help_treatment();
+                                $num=1;
+                                foreach ($illnesses as $illness) {     
+                            ?>
+                              <option value="<?=$illness['id']?>"><?=$illness['illness']?></option>
+                            <?php } } ?>
                           </select>
                         </div>
                         <div class=" col-md-4 form-group mt-3">
-                          <a href="how-to-treat.php" class="btn btn-primary" type="submit">Learn more</a>
+                          <button name="how-to-treat" class="btn btn-primary" type="submit">Learn more</button>
                         </div>
                       </div>
                     </form>

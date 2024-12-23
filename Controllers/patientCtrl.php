@@ -46,6 +46,30 @@
         }
     
     }
+    
+    #Update Patient Info
+    if (isset($_POST["update_profile"])){
+        session_start();
+
+        $url         = $_POST['url'];
+        $user->fullname = $_POST["fullname"];
+        $user->phone = $_POST["phone"];
+        // $user->email = $_POST["email"];
+        $user->address = $_POST["address"];
+        $response = $user->update_patient($_POST["user_id"]);
+
+        if ($response['status'] == true) {
+
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        } else {
+            
+            $_SESSION['message'] = $response["message"];
+            header("location: ../$url");
+
+        }
+    }
 
     #All appointments
     if ($user->fetch_appointment($user_id)) {
@@ -95,6 +119,16 @@
     #get pains
     if ($user->get_pain()) {
         $pains = $user->get_pain();
+    }
+
+    #get self_help_treatment
+    if ($user->self_help_treatment()) {
+        $self_help = $user->self_help_treatment();
+    }
+
+    #get self_help_treatment
+    if ($user->treatment($id)) {
+        return $treat = $user->treatment($id);
     }
 
     #Upload Medical Report

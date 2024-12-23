@@ -127,10 +127,10 @@
             return false;
         }
 
-        #Doctors Login Model
+        #Patient Login Model
         public function login_patient() {
             
-            $query = "SELECT * FROM user WHERE email = :email AND is_admin = 0 ";
+            $query = "SELECT * FROM user WHERE email = :email AND is_admin = 0";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
             $stmt->execute();
@@ -160,14 +160,13 @@
         }
         
         #Update user profile
-        public function update_profile() {
+        public function update_user() {
 
             // Update the profile_details in the database
-            $query = "UPDATE settings SET brand = :brand, about = :about, email = :email, phone = :phone";
+            $query = "UPDATE user SET name = :fullname, address = :address, email = :email, phone = :phone";
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":brand", $this->brand, PDO::PARAM_STR);
-            $stmt->bindParam(":about", $this->about, PDO::PARAM_STR);
-            $stmt->bindParam(":email", $this->email, PDO::PARAM_STR);
+            $stmt->bindParam(":fullname", $this->fullname, PDO::PARAM_STR);
+            $stmt->bindParam(":address", $this->address, PDO::PARAM_STR);
             $stmt->bindParam(":phone", $this->phone, PDO::PARAM_STR);
 
             if ($stmt->execute()) {

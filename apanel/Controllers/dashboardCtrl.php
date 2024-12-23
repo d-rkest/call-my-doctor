@@ -4,6 +4,7 @@
     require_once './Models/Dashboard.php';
     require_once './Models/Service.php';
     require_once './Models/Pain.php';
+    require_once './Models/SelfHelp.php';
 
     $database = new Database();
     $db = $database->getConnection();
@@ -11,6 +12,7 @@
     $data = new Dashboard($db);
     $service = new Service($db);
     $pain = new Pain($db);
+    $self_help = new SelfHelp($db);
 
     $user_id = $_SESSION['user_id'];
     
@@ -34,7 +36,7 @@
     
     #fetch pains
     if ($pain->fetch_pains()) {
-
+        
         return $pain->fetch_pains();
     }
     
@@ -47,4 +49,10 @@
     if ($data->count_patient()) {
 
         $patientCount = $data->count_patient();
+    }
+    
+    #fetch pains
+    if ($pain->fetch_self_help()) {
+
+        return $pain->fetch_self_help();
     }

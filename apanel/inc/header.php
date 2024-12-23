@@ -262,13 +262,21 @@
         </a>
       </li><!-- End Payment Nav -->
 
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="pains.php">
           <i class="bi bi-bandaid"></i>
           <span>Pains</span>
         </a>
-      </li> -->
+      </li>
       <!-- End Pains Section Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="self-help.php">
+          <i class="bi bi-heart-pulse"></i>
+          <span>Self Help</span>
+        </a>
+      </li>
+      <!-- End Self Help Section Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="settings.php">

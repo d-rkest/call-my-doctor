@@ -18,13 +18,15 @@
 
           <div class="card">
             <div class="card-body">
+
+              <?php $treat = $user->treatment($_GET["illness"]); ?>
               
-              <h5 class="card-title">About Malaria</h5>
-              <p>Malaria is a life-threatening disease caused by Plasmodium parasites, which are transmitted to humans through the bites of infected female Anopheles mosquitoes. There are several types of malaria parasites, with Plasmodium falciparum being the most severe and deadly. Malaria is prevalent in tropical and subtropical regions, particularly in Africa, Asia, and Latin America. Symptoms typically appear 10-15 days after being bitten and include fever, chills, headache, muscle pain, nausea, and vomiting. Severe malaria can lead to anemia, respiratory distress, organ failure, or even death if not treated promptly.</p>
+              <h5 class="card-title"><?=$treat["illness"];?> Overview</h5>
+              <p><?=$treat["about"];?></p>
 
               <div class=" col-md-4 form-group mt-3">
                 <!-- <button class="btn btn-primary" type="submit">See Guide</button> -->
-                <a href="how-to-treat.php" class="btn btn-primary" type="submit">How to treat</a>
+                <a href="how-to-treat.php?illness=<?=$treat["id"];?>" class="btn btn-primary">How to treat</a>
               </div>
               
             </div>

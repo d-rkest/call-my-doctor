@@ -28,7 +28,10 @@
                         <th scope="col">Profile</th>
                         <th scope="col">Name</th>
                         <th scope="col">Department</th>
+                        <th scope="col">Patients</th>
                         <th scope="col">Ratings</th>
+                        <th scope="col">Reviews</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -46,17 +49,63 @@
                       <tr>
                         <th scope="row"><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><img class="rounded-circle" src="assets/img/profile.jpg" alt=""></a></th>
                         <td><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>" class="text-primary fw-bold">Dr. <?=$doctor['fullname'];?></a></td>
-                        <td><?=$doctor['specialty'];?></td>
-                        <td class="fw-bold">
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-fill"style="color:gold;"></i>
-                          <i class="bi bi-star-half"style="color:gold;"></i>
+                        <td>
+                          <?php
+                            switch ($doctor['specialty']) {
+                              case '1':
+                                echo 'General Practitional';
+                                break;
+
+                              case '2':
+                                echo 'Optimologist';
+                                break;
+
+                              case '3':
+                                echo 'Dermatologist';
+                                break;
+
+                              case '4':
+                                echo 'Pediatrician';
+                                break;
+
+                              case '5':
+                                echo 'Nutritionist';
+                                break;
+
+                              case '6':
+                                echo 'Gynacologist';
+                                break;
+
+                              case '7':
+                                echo 'Pharmacist';
+                                break;
+                              
+                              default:
+                              echo 'Update code base';
+                                break;
+                            }
+                          ?>
+                        </td>
+                        <td><?= $doctor["no_of_patient"]; ?></td>
+                        <td><?= $doctor['ratings']; ?></td>
+                        <td><a href="reviews.php?doctor_id=<?=$doctor["user_id"];?>" class="text-primary fw-bold">(<?= $doctor["reviews"]; ?>) <i class="bi bi-eye"></i></a></td>
+                        <td>
+                          <?php
+                            switch ($doctor['available']) {
+                              case '1':
+                                echo '<span class="badge bg-success">available</span>';
+                                break;
+                              
+                              default:
+                              echo '<span class="badge bg-danger">not available</span>';
+                                break;
+                            }
+                          ?>
                         </td>
                         <td>
-                            <span><a href="#"><i class="bi bi-phone-vibrate h2 text-success"></i> | </a></span>
-                            <span><a href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope h2 text-primary"></i></a></span>
+                          <span><a class="px-1" href="#"><i class="bi bi-camera-video-fill text-primary"></i></a></span>
+                          <span><a class="px-1" href="#"><i class="bi bi-phone-vibrate h3 text-success"></i></a></span>
+                          <span><a class="px-1" href="fix-appointment.php?uid=<?= $doctor["user_id"];?>"><i class="bi bi-envelope-fill text-primary"></i></a></span>
                         </td>
                       </tr>
                       <?php
