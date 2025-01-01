@@ -1,4 +1,8 @@
 <?php
+#My variables
+$name = "George";
+require_once 'signature.php';
+
 // Step 1: Get meeting details (can be fetched from DB if stored)
 $meetingId = $_GET['meeting_id']; // Meeting ID passed in the URL
 $meetingPassword = $_GET['meeting_password']; // Meeting password
@@ -21,15 +25,15 @@ $signature = generateZoomSignature($meetingId, 0); // 0 for participant, 1 for h
     ZoomMtg.prepareJssdk();
 
     ZoomMtg.init({
-        leaveUrl: 'https://yourapp.com/leave',  // URL when meeting ends
+        leaveUrl: 'https://callmydo.ng/patients/zoom/leave',  // URL when meeting ends
         isSupportAV: true,  // Enable audio/video
         success: function() {
             ZoomMtg.join({
                 meetingNumber: meetingNumber, 
-                userName: 'Patient',  // Replace with dynamic patient name
+                userName: "<?= $name; ?>",  // Replace with dynamic patient name
                 signature: signature, 
-                apiKey: 'YOUR_ZOOM_API_KEY',
-                userEmail: 'patient@example.com',  // Replace with dynamic email
+                apiKey: '1uT431XRRyOLdHbTtb3Ow',
+                userEmail: 'darkest.mobile@gmail.com',  // Replace with dynamic email
                 passWord: meetingPassword,  // If required
                 success: function(res) {
                     console.log('Join meeting success', res);

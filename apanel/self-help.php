@@ -55,7 +55,7 @@
                 </div><!-- End Vertically centered Modal-->
 
                 <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Services</h5>
+                  <h5 class="card-title">Self Help</h5>
                   <span class="p-3"><a href="#" class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#verticalycentered">+ Add</a></span>
                 </div>
 

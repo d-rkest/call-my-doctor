@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php';  // Include the JWT library
+require_once '../../vendor/autoload.php';  // Include the JWT library
 
 use \Firebase\JWT\JWT;
 
