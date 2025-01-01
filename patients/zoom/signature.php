@@ -18,7 +18,7 @@ function generateZoomSignature($meetingNumber, $role) {
         'exp' => $exp,
     ];
 
-    $signature = JWT::encode($data, $apiSecret);
+    $signature = JWT::encode($data, $apiSecret, 'HS256');
     
     return $signature;
 }
