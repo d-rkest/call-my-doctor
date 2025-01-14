@@ -28,13 +28,13 @@
                   <i class="bi bi-phone-vibrate"></i>
                 </a>
               </div>
-              <div class="col-12 border border-rounded bg-light text-secondary text-center p-2"> { type of doctor - pain - location: country | state }</div>
+              <div class="col-12 bg-light text-secondary text-center p-2" style="border-style: dotted; border-radius: .5em;"> { type of doctor - pain - location: country | state }</div>
             </div>
 
             <div class="row">
               <form class="row row-cols-lg-8 g-3 align-items-center">
 
-                <div class="col-3">
+                <div class="col-md-3">
                   <select class="form-select" id="inlineFormSelectPref">
                     <option selected disabled>Type of pain...</option>
                     <option value="1">One</option>
@@ -42,7 +42,7 @@
                     <option value="3">Three</option>
                   </select>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <select class="form-select" id="inlineFormSelectPref">
                     <option selected disabled>Type of doctor...</option>
                     <option value="1">General practitional</option>
@@ -50,12 +50,12 @@
                     <option value="3">Nurologist</option>
                   </select>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <select class="form-select" id="inlineFormSelectPref" disabled>
                     <option selected>Location: Nigeria</option>
                   </select>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <select class="form-select" id="inlineFormSelectPref" disabled>
                     <option selected>Location: Lagos</option>
                   </select>

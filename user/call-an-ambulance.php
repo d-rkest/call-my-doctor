@@ -23,7 +23,7 @@
 
           <div class="row p-3">
             <div class="col-md-4">
-              <button class="btn btn-primary">Click to reload</button>
+              <button class="btn btn-primary">Refresh Location</button>
               <p class="mt-5">Phone 1: +234 111 1121 12</p>
               <p class="pt-1">Phone 2: +234 111 1121 12</p>
               <button class="badge badge-sm bg-success mt-5">

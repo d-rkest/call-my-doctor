@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $session_id = $_SESSION['user_type'] = 1;
+  // $session_id = $_SESSION['user_type'] = 1;
   require_once 'app/Layouts/home-header.php';
 ?>
 
@@ -38,20 +38,20 @@
                 </a>
               </div><!-- End Icon Box -->
 
-              <div class="col-xl-3 d-flex align-items-stretch">
+              <div class="col-xl-3 col-md-6 d-flex align-items-stretch">
                 <a href="self-help.php">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="400">
                     <i class="bi bi-heart-pulse"></i>
-                    <h4>Self Help &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self Help &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
                   </div>
                 </a>
               </div><!-- End Icon Box -->
 
-              <div class="col-xl-3 d-flex align-items-stretch">
+              <div class="col-xl-3 col-md-6 d-flex align-items-stretch">
                 <a href="give-first-aid.php">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="500">
                     <i class="bi bi-inboxes"></i>
-                    <h4>Give first Aid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Give first Aid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
                   </div>
                 </a>
               </div><!-- End Icon Box -->
@@ -60,7 +60,7 @@
                 <a href="./user/buy-prescription.php">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="500">
                     <i class="bi bi-capsule-pill"></i>
-                    <h4>Buy Precription</h4>
+                    <h4>&nbsp;&nbsp;&nbsp;&nbsp; Buy Precription &nbsp;&nbsp;&nbsp;&nbsp;</h4>
                   </div>
                 </a>
               </div><!-- End Icon Box -->
