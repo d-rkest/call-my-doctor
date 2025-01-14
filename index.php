@@ -12,7 +12,7 @@
     <div class="container position-relative">
 
       <div class="content row gy-2">
-        <div class="col-lg-3 d-flex align-items-stretch">
+        <div class="col-lg-3 col-md-4 d-flex align-items-stretch">
           <div class="why-box" data-aos="zoom-out" data-aos-delay="200">
             <h3 class="text-light">Call A Doctor</h3>
             <p class="fw-bold">Experience Quality Healthcare Anywhere, Anytime.</p>
