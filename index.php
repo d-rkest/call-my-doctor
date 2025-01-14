@@ -29,7 +29,7 @@
           <div class="d-flex flex-column justify-content-center">
             <div class="row gy-2">
 
-              <div class="col-xl-3 d-flex align-items-stretch">
+              <div class="col-xl-3 col-md-6 d-flex align-items-stretch">
                 <a href="./user/call-an-ambulance.php">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="300">
                     <i class="bi bi-car-front"></i>
@@ -56,7 +56,7 @@
                 </a>
               </div><!-- End Icon Box -->
 
-              <div class="col-xl-3 d-flex align-items-stretch">
+              <div class="col-xl-3 col-md-6 d-flex align-items-stretch">
                 <a href="./user/buy-prescription.php">
                   <div class="icon-box" data-aos="zoom-out" data-aos-delay="500">
                     <i class="bi bi-capsule-pill"></i>
