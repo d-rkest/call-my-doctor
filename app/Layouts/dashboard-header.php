@@ -135,7 +135,6 @@
 
   </header><!-- End Header -->
 
-
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
@@ -149,34 +148,77 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="schedule.php">
+          <i class="bi bi-journal-richtext"></i>
+          <span>Schedule</span>
+        </a>
+      </li><!-- End Call A Doctor Page Nav -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" href="appointment.php">
           <i class="bi bi-envelope"></i>
-          <span>Appointments</span>
+          <span>Appointment Request</span>
         </a>
-      </li><!-- End Contact Page Nav -->
+      </li><!-- End Call A Doctor Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="medical-report.php">
-          <i class="bi bi-file-earmark"></i>
-          <span>Medical Report</span>
+        <a class="nav-link collapsed" href="analyze-med-report.php">
+          <i class="bi bi-journal-text"></i>
+          <span>Analyze Medical Report</span>
         </a>
       </li><!-- End Blank Page Nav -->
-      </li><!-- End Contact Page Nav -->
-
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="profile.php">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li> -->
-      <!-- End Blank Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="profile.php">
+        <a class="mx-auto nav-link collapsed" href="medical-feedback.php"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="bi bi-arrow-right"></i>
+          <span>Medical Feedback</span>
+        </a>
+      </li><!-- End Call A Doctor Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="calls.php">
+          <i class="bi bi-chat"></i>
+          <span>Calls</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="my-wallet.php">
+          <i class="bi bi-piggy-bank"></i>
+          <span>My Wallet</span>
+        </a>
+      </li><!-- End Call A Doctor Page Nav -->
+
+      <li class="nav-item">
+        <a class="mx-auto nav-link collapsed" href="medical-records.php">
+          <i class="bi bi-archive"></i>
+          <span>Medical Record</span>
+        </a>
+      </li><!-- End Call A Doctor Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="billings.php">
+          <i class="bi bi-receipt"></i>
+          <span>Billing</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="settings.php">
           <i class="bi bi-gear"></i>
           <span>Settings</span>
         </a>
       </li><!-- End Blank Page Nav -->
+
+      <li class="nav-heading"><hr></li>
+
+      <li class="nav-item">
+        <form action="../Controllers/userCtrl.php" method="post">
+          <button class=" mx-auto collapsed nav-link" name="logout" type="submit">
+            <span class="btn btn-sm btn-danger fw-bold"><i class="bi bi-power text-white"></i> Logout</span>
+          </button>
+        </form>
+      </li><!-- End Logout Nav -->
 
     </ul>
 
@@ -210,7 +252,7 @@
             '.$_SESSION['warning'].'
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>';
-            unset($_SESSION['error']);
+            unset($_SESSION['warning']);
         }
       ?>
     </span>

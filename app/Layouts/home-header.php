@@ -1,5 +1,5 @@
 <?php
-  $_SESSION['user_type'] = 0;
+  use PHPMailer\PHPMailer\PHPMailer;
 
   // Require the database configuration
   require_once dirname(__DIR__) . '/Config/database.php';
@@ -7,6 +7,7 @@
   // Autoload classes using Composer's autoloader
   require_once dirname(__DIR__) . '/../vendor/autoload.php';
 
+  $mail = new PHPMailer;
   // $user = new Models\User();
   // $controller = new Controllers\UserController();
 ?>
@@ -63,7 +64,7 @@
                 <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
             </li>
             <li><a href="locate-med-center.php">Locate Medical Center</a></li>
-            <li><a href="dashboard/">Analyze Medical Report</a></li>
+            <li><a href="dashboard/analyze-med-report.php">Analyze Medical Report</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

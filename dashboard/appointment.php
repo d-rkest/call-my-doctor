@@ -1,6 +1,10 @@
 <?php
-  $active = 'active';
-  require_once dirname(__DIR__) . '/app/Layouts/user-header.php';
+  require_once dirname(__DIR__) . '/app/Layouts/dashboard-header.php';
+?>
+
+<?php
+  // require_once 'inc/header.php';
+  // require_once '../Controllers/doctorCtrl.php';
 ?>
 
     <div class="pagetitle">
@@ -21,10 +25,7 @@
           <div class="card recent-sales overflow-auto">
 
             <div class="card-body">
-              <div class="card-header">
-                <a href="#" class="btn btn-primary">Appointments (0)</a>
-                <a class="btn btn-light" href="#available-doctors">Available doctors (0)</a>
-              </div>
+              <div class="card-header"></div>
 
                 <table class="table table-borderless datatable">
                   <thead>
@@ -56,43 +57,8 @@
 
           </div>
         </div><!-- End appointments -->
-        
-
-        <!-- Availabl doctors -->
-        <div class="col-12">
-          <div class="card recent-sales overflow-auto">
-
-            <div class="card-body">
-              <h5 class="card-title">Available doctors</h5>
-              
-                <table class="table table-borderless datatable" id="available-doctors">
-                  <thead>
-                    <tr>
-                      <th scope="col">Doctor</th>
-                      <th scope="col">Ratings</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row" style="vertical-align: middle;height:60px" colSpan="6" class="text-center text-secondary">No Record</th>
-                    </tr>
-                    <!-- <tr>
-                      <td><a href="#" class="text-primary fw-bold"></a></td>
-                      <td><a href="#" class="text-primary fw-bold"><i class="bi bi-eye"></i></a></td>
-                      <td><span class="badge bg-success">available</span></td>
-                      <td></td>
-                    </tr> -->
-                  </tbody>
-                </table>
-
-            </div>
-
-          </div>
-        </div><!-- End appointments -->
-        
+                
       </div>
     </section>
 
-<?php  include dirname(__DIR__) . '/app/Layouts/user-footer.php'; ?>
+<?php  include dirname(__DIR__) . '/app/Layouts/dashboard-footer.php'; ?>

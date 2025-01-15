@@ -1,14 +1,18 @@
 <?php
-  $active = 'active';
-  require_once dirname(__DIR__) . '/app/Layouts/user-header.php';
+  require_once dirname(__DIR__) . '/app/Layouts/dashboard-header.php';
+?>
+
+<?php
+  // require_once 'inc/header.php';
+  // require_once '../Controllers/doctorCtrl.php';
 ?>
 
     <div class="pagetitle">
-      <h1>Appointment</h1>
+      <h1>Medical History</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Appointment</li>
+          <li class="breadcrumb-item active">Medical History</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -95,4 +99,4 @@
       </div>
     </section>
 
-<?php  include dirname(__DIR__) . '/app/Layouts/user-footer.php'; ?>
+<?php  include dirname(__DIR__) . '/app/Layouts/dashboard-footer.php'; ?>
