@@ -1,15 +1,15 @@
 <?php
-  use PHPMailer\PHPMailer\PHPMailer;
-
-  // Require the database configuration
-  require_once dirname(__DIR__) . '/Config/database.php';
+  use Config\Database;
+  use Models\User;
+  use Controllers\UserController;
 
   // Autoload classes using Composer's autoloader
   require_once dirname(__DIR__) . '/../vendor/autoload.php';
 
-  $mail = new PHPMailer;
-  // $user = new Models\User();
-  // $controller = new Controllers\UserController();
+  $database = new Database();
+  $db = $database->getConnection();
+
+  $user = new User($db);
 ?>
 
 <!DOCTYPE html>
@@ -69,10 +69,12 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0 ) { ?>
-          <a class="cta-btn d-none d-sm-block" href="./user">My Profile</a>
-        <?php } elseif ($_SESSION['user_type'] == 1) { ?>
-          <a class="cta-btn d-none d-sm-block" href="./dashboard">My Profile</a>
+        <?php if (isset($session_id)) { ?>
+          <?php if ($_SESSION['user_type'] == 0 ) { ?>
+            <a class="cta-btn d-none d-sm-block" href="./user">My Profile</a>
+          <?php } elseif ($_SESSION['user_type'] == 1) { ?>
+            <a class="cta-btn d-none d-sm-block" href="./dashboard">My Profile</a>
+          <?php } ?>
         <?php } else { ?>
           <a class="cta-btn d-none d-sm-block" href="login.php">Login / SignUp</a>
         <?php } ?>

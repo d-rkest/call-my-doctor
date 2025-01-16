@@ -10,12 +10,17 @@ class Router {
 
     public function dispatch(string $path): void {
         
-        if (array_key_exists($path, $this->routes)) {
-            $handler = $this->routes[$path];
+        foreach ($this->routes as $route => $handler) {
+            $patter = preg_replace("#\{\w+\}#", "([^\/]+)", $route);
 
-            call_user_func($handler);
-        } else {
-            header('Location: 404.php');
+            if ( preg_match("#^$pattern$#", $path, $matches)) {
+                
+                array_shift($matches);
+                call_user_func_array($handler, $matches);
+
+                return;
+            }
         }
+        header('Location: 404.php');
     }
 }

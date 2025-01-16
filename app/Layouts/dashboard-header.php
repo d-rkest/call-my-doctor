@@ -1,6 +1,6 @@
 <?php
-  // dirname(__DIR__)  . '/../Config/app.php'; // This contains the autoloader
-  $session_id = $_SESSION['user_type'] = 1;
+  dirname(__DIR__)  . '/../Config/app.php'; // This contains the autoloader
+  // $session_id = $_SESSION['user_type'] = 1;
 ?>
 <?php 
   // require_once '../config/sessionConfig.php';
@@ -213,7 +213,7 @@
       <li class="nav-heading"><hr></li>
 
       <li class="nav-item">
-        <form action="../Controllers/userCtrl.php" method="post">
+        <form action="../app/Controllers/userController.php" method="post">
           <button class=" mx-auto collapsed nav-link" name="logout" type="submit">
             <span class="btn btn-sm btn-danger fw-bold"><i class="bi bi-power text-white"></i> Logout</span>
           </button>

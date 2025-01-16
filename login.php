@@ -1,5 +1,8 @@
 <?php
   require_once 'app/Layouts/home-header.php';
+  
+  require_once __DIR__ . '/vendor/autoload.php';
+
 ?>
 
     <div class="container mt-5">
@@ -53,7 +56,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
                             <button type="button" class="btn btn-outline-danger w-100">
-                                <i class="bi bi-google"></i> Login with Google
+                                <a href="<?= $url ?>"><i class="bi bi-google"></i> Login with Google</a>
                             </button>
                         </form>
                     </div>

@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $session_id = $_SESSION['user_type'] = 1;
+  // $session_id = $_SESSION['user_type'] = 1;
   require_once 'app/Layouts/home-header.php';
 ?>
 

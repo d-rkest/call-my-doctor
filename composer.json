@@ -1,5 +1,13 @@
 {
     "require": {
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "phroute/phroute": "^2.2",
+        "google/apiclient": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "": "app/"
+        }
     }
 }

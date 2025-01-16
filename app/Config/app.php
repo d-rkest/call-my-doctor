@@ -1,13 +1,7 @@
 <?php
     // Base URL of the application
-	define('BASE_URL', 'http://localhost/telemedicine-app');
-	define("APP_NAME", "Call My Doctor");
-
-	// Database configurations
-	define('DB_HOST', '127.0.0.1');
-	define('DB_NAME', 'telemedicine');
-	define('DB_USER', 'root');
-	define('DB_PASS', 'password');
+	// define('BASE_URL', 'http://localhost/telemedicine-app');
+	// define("APP_NAME", "Call My Doctor");
 
 	# Set session
 	session_start();
