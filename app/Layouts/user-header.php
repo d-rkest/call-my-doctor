@@ -1,14 +1,19 @@
 <?php
-  // dirname(__DIR__)  . '/../app/Config/app.php'; // This contains the autoloader
-  $_SESSION['user_type'] = 0;
-?>
-<?php
-  // require_once '../config/sessionConfig.php';
-  // require_once '../Controllers/patientCtrl.php';
-  // $profile = $user->user_profile($_SESSION['user_id']);
-  // $rCount = $user->count_report($_SESSION['user_id']);
-  // $aCount = $user->count_appointment($_SESSION['user_id']);
-  // $dCount = $user->count_available_doctor();
+  use Config\Database;
+  use Models\User;
+  use Controllers\UserController;
+
+  // Session configuration
+  // require_once dirname(__DIR__) . '/../../Config/app.php';
+
+  // Autoload classes using Composer's autoloader
+  require_once dirname(__DIR__) . '/../vendor/autoload.php';
+
+  $database = new Database();
+  $db = $database->getConnection();
+
+  $user = new User($db);
+  $userCtrl = new UserController();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +127,10 @@
             </li>
 
             <li>
-              <form action="../Controllers/userCtrl.php" method="post">
+              <?php if (isset($_GET['logout'])) {
+                $userCtrl->logout();
+              } ?>
+              <form action="" method="get">
                 <button name="logout" class="dropdown-item d-flex align-items-center">
                   <i class="bi bi-box-arrow-right"></i>
                   <span>Sign Out</span>
