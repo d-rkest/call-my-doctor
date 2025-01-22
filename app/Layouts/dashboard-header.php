@@ -1,15 +1,3 @@
-<?php
-  dirname(__DIR__)  . '/../Config/app.php'; // This contains the autoloader
-  // $session_id = $_SESSION['user_type'] = 1;
-?>
-<?php 
-  // require_once '../config/sessionConfig.php';
-  // require_once '../Controllers/doctorCtrl.php';
-  // $profile = $user->user_profile($_SESSION['user_id']);
-  // $aCount = $user->count_appointment($_SESSION['user_id']);
-  // $prCount = $user->count_pending_report($_SESSION['user_id']);
-  // $rCount = $user->count_report($_SESSION['user_id']);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,24 +10,24 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../dashboard/assets/img/favicon.png" rel="icon">
+  <link href="../dashboard/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="../dashboard/assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -49,8 +37,8 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="../index.php" class="logo d-flex align-items-center">
-        <!-- <img src="assets/img/logo.png" alt=""> -->
+      <a href="/" class="logo d-flex align-items-center">
+        <!-- <img src="../dashboard/assets/img/logo.png" alt=""> -->
         <span class="d-none d-lg-block">Call My Doctor</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -75,7 +63,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="../dashboard/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">Profile</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -141,70 +129,70 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.php">
+        <a class="nav-link " href="/dashboard/">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="schedule.php">
+        <a class="nav-link collapsed" href="/dashboard/Schedule">
           <i class="bi bi-journal-richtext"></i>
           <span>Schedule</span>
         </a>
       </li><!-- End Call A Doctor Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="appointment.php">
+        <a class="nav-link collapsed" href="/dashboard/Appointment">
           <i class="bi bi-envelope"></i>
           <span>Appointment Request</span>
         </a>
       </li><!-- End Call A Doctor Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="analyze-med-report.php">
+        <a class="nav-link collapsed" href="/dashboard/Analyze-Medical-Report">
           <i class="bi bi-journal-text"></i>
           <span>Analyze Medical Report</span>
         </a>
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item">
-        <a class="mx-auto nav-link collapsed" href="medical-feedback.php"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="mx-auto nav-link collapsed" href="/dashboard/Medical-Feedback"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <i class="bi bi-arrow-right"></i>
           <span>Medical Feedback</span>
         </a>
       </li><!-- End Call A Doctor Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="calls.php">
+        <a class="nav-link collapsed" href="/dashboard/Calls">
           <i class="bi bi-chat"></i>
           <span>Calls</span>
         </a>
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="my-wallet.php">
+        <a class="nav-link collapsed" href="/dashboard/My-Wallet">
           <i class="bi bi-piggy-bank"></i>
           <span>My Wallet</span>
         </a>
       </li><!-- End Call A Doctor Page Nav -->
 
       <li class="nav-item">
-        <a class="mx-auto nav-link collapsed" href="medical-records.php">
+        <a class="mx-auto nav-link collapsed" href="/dashboard/Medical-Record">
           <i class="bi bi-archive"></i>
           <span>Medical Record</span>
         </a>
       </li><!-- End Call A Doctor Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="billings.php">
+        <a class="nav-link collapsed" href="/dashboard/Billing">
           <i class="bi bi-receipt"></i>
           <span>Billing</span>
         </a>
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="settings.php">
+        <a class="nav-link collapsed" href="/dashboard/Settings">
           <i class="bi bi-gear"></i>
           <span>Settings</span>
         </a>
@@ -213,7 +201,7 @@
       <li class="nav-heading"><hr></li>
 
       <li class="nav-item">
-        <form action="../app/Controllers/userController.php" method="post">
+        <form action="/logout" method="get">
           <button class=" mx-auto collapsed nav-link" name="logout" type="submit">
             <span class="btn btn-sm btn-danger fw-bold"><i class="bi bi-power text-white"></i> Logout</span>
           </button>

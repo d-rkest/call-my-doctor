@@ -1,17 +1,3 @@
-<?php
-  use Config\Database;
-  use Models\User;
-  use Controllers\UserController;
-
-  // Autoload classes using Composer's autoloader
-  require_once dirname(__DIR__) . '/../vendor/autoload.php';
-
-  $database = new Database();
-  $db = $database->getConnection();
-
-  $user = new User($db);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +37,7 @@
     <div class="branding d-flex align-items-center">
 
       <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.php" class="logo d-flex align-items-center me-auto">
+        <a href="/" class="logo d-flex align-items-center me-auto">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
           <h1 class="sitename">Call My Doctor</h1>
@@ -63,21 +49,21 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
             </li>
-            <li><a href="locate-med-center.php">Locate Medical Center</a></li>
-            <li><a href="dashboard/analyze-med-report.php">Analyze Medical Report</a></li>
+            <li><a href="/Locate-Medical-Center">Locate Medical Center</a></li>
+            <li><a href="dashboard/Analyze-Medical-Report">Analyze Medical Report</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <?php if (isset($session_id)) { ?>
-          <?php if ($_SESSION['user_type'] == 0 ) { ?>
-            <a class="cta-btn d-none d-sm-block" href="./user">My Profile</a>
-          <?php } elseif ($_SESSION['user_type'] == 1) { ?>
-            <a class="cta-btn d-none d-sm-block" href="./dashboard">My Profile</a>
-          <?php } ?>
-        <?php } else { ?>
-          <a class="cta-btn d-none d-sm-block" href="login.php">Login / SignUp</a>
-        <?php } ?>
+        <?php if (isset($_SESSION['user'])): ?>
+          <?php if ($_SESSION['user']['is_admin'] != 1) : ?>
+            <a class="cta-btn d-none d-sm-block" href="/user">My Account</a>
+          <?php else : ?>
+            <a class="cta-btn d-none d-sm-block" href="/dashboard">My Dasbhoard</a>
+          <?php endif; ?>
+        <?php else: ?>
+          <a class="cta-btn d-none d-sm-block" href="/Login">Login / SignUp</a>
+        <?php endif; ?>
 
       </div>
 
