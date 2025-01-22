@@ -1,0 +1,38 @@
+/* Custom styles */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.btn-group {
+    flex-wrap: wrap;
+}
+
+.btn-group .btn {
+    margin-bottom: 0.5rem;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
